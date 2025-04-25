@@ -242,6 +242,46 @@ public class vendorRestControllers
             return e.toString();
         }
     }
+    
+    @GetMapping("/FetchVendorData")
+    public String fetchVendorData(HttpSession session)
+    {
+        int sid = (int) session.getAttribute("id");
+        String ans = new RDBMS_TO_JSON().generateJSON("select vendors.*, cities.cityname, services.servicename  from vendors JOIN cities ON cities.cityid = vendors.city  JOIN services ON vendors.service = services.serviceid where id="+sid);
+        return ans;      
+    }
+    
+    @PostMapping("/UpdateVendorProfile")
+    public String UpdateVendorProfile(HttpSession session,@RequestParam String name, @RequestParam String city, @RequestParam String starttime, @RequestParam String endtime, @RequestParam String price, @RequestParam String contact, @RequestParam String desc)
+    {
+        
+        try 
+        {
+            int sid = (int) session.getAttribute("id");
+            ResultSet rs=DBLoader.executeQuery("select * from vendors where id="+sid);
+            if(rs.next())
+            {
+                rs.updateString("name", name);                
+                rs.updateInt("city", Integer.parseInt(city));
+                rs.updateString("starttime", starttime);
+                rs.updateString("endtime", endtime);
+                rs.updateString("price", price);
+                rs.updateString("contact", contact);
+                rs.updateString("desc", desc);
+                rs.updateRow();
+                return "Profile Updated Successfully !";
+            }
+            else
+            {
+                return "Profile Not found ";
+            }
+        } 
+        catch (Exception e) 
+        {
+            return e.toString();
+        }
+    
+    }
     //    @GetMapping("/getCityForVendorTable")
 //    public String getCityForVendorTable(@RequestParam String cityid)
 //    {
