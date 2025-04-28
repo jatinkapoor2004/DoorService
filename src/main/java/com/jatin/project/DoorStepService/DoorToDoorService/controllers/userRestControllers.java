@@ -2,9 +2,11 @@
 package com.jatin.project.DoorStepService.DoorToDoorService.controllers;
 
 import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.DBLoader;
+import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.RDBMS_TO_JSON;
 import jakarta.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,6 +87,13 @@ public class userRestControllers
         {
             return e.toString();
         }
+    }
+    
+    @GetMapping("getCitiesDropdown")
+    public String getCitiesDropdown()
+    {
+        String ans = new RDBMS_TO_JSON().generateJSON("select * from cities");
+        return ans; 
     }
     
 }

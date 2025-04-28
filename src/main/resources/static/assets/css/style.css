@@ -513,7 +513,7 @@ video {
 }
 
 .sec-title.layout-2.special .title-right a:hover span i {
-  color: #FF6635;
+  color: #5BB543;
   left: 0;
 }
 
@@ -584,7 +584,7 @@ video {
     width: 100%;
   }
   .header-3 .cross-btn span {
-    background-color: #FF6635 !important;
+    background-color: #5BB543 !important;
   }
   .cross-btn.h-active span.cross-top {
     transform: rotate(45deg);
@@ -749,11 +749,11 @@ video {
 }
 
 .header-3 .my-account a {
-  border: 1px solid #FF6635;
+  border: 1px solid #5BB543;
 }
 
 .header-3 .my-account a:before, .header-3 .my-account a:after {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .breadcrumbs {
@@ -4598,11 +4598,11 @@ footer .line-shape {
 }
 
 .header-3 .main-menu .main-nav ul li a.active {
-  color: #FF6635 !important;
+  color: #5BB543 !important;
 }
 
 .header-3 .main-menu .main-nav ul li a:hover {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .header-3 .main-menu .main-nav ul li > ul.sub-menu li a {
@@ -4610,7 +4610,7 @@ footer .line-shape {
 }
 
 .header-3 .main-menu .main-nav ul li > ul.sub-menu li a:before {
-  background: linear-gradient(266.54deg, #142935 -5.63%, #FF6635 95.62%);
+  background: linear-gradient(266.54deg, #142935 -5.63%, #5BB543 95.62%);
 }
 
 .header-3 .main-menu .main-nav ul li > ul.sub-menu li a:hover:before {
@@ -4624,7 +4624,7 @@ footer .line-shape {
 }
 
 .header-3 .header-right .phone .phn-info span {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .header-3 .header-right .phone .phn-info a {
@@ -4632,7 +4632,7 @@ footer .line-shape {
 }
 
 .header-3 .header-right .phone .phn-info a:hover {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .header-3 .header-right .wishlist a {
@@ -4640,12 +4640,12 @@ footer .line-shape {
 }
 
 .header-3 .header-right .wishlist a:hover {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .header-3 .header-right .account-btn a {
   color: #fff;
-  border: 1px solid #FF6635;
+  border: 1px solid #5BB543;
 }
 
 .header-3 .header-right .account-btn a:before {
@@ -4656,7 +4656,7 @@ footer .line-shape {
   position: absolute;
   top: 0%;
   left: 0%;
-  background-color: #FF6635;
+  background-color: #5BB543;
   transition: all 0.5s ease-out 0s;
   border-radius: 5px;
   z-index: -1;
@@ -4670,14 +4670,14 @@ footer .line-shape {
   position: absolute;
   top: 0%;
   left: 0%;
-  background-color: #FF6635;
+  background-color: #5BB543;
   transition: all 0.5s ease-out 0s;
   border-radius: 5px;
   z-index: -1;
 }
 
 .header-3 .header-right .account-btn a:hover {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .header-3 .header-right .account-btn a:hover:before {
@@ -4803,7 +4803,7 @@ footer .line-shape {
 
 .hero-area-three .find-service .location-search .location-btn .nice-select.loc-select {
   height: 60px;
-  background-color: #FF6635;
+  background-color: #5BB543;
   background-image: none;
   border: none;
   min-width: 170px;
@@ -4838,7 +4838,7 @@ footer .line-shape {
 }
 
 .hero-area-three .find-service .location-search .location-form form button {
-  background-color: #FF6635;
+  background-color: #5BB543;
   border-radius: 50%;
   font-size: 18px;
 }
@@ -4911,7 +4911,7 @@ footer .line-shape {
 }
 
 .hero-area-three .find-service .suggest .suggest-list li a {
-  color: #FF6635;
+  color: #5BB543;
   background-color: #FFFFFF;
   border: 1px solid #FFFFFF;
   border-radius: 30px;
@@ -4927,8 +4927,8 @@ footer .line-shape {
 
 .hero-area-three .find-service .suggest .suggest-list li a:hover {
   color: #fff;
-  border: 1px solid #FF6635;
-  background-color: #FF6635;
+  border: 1px solid #5BB543;
+  background-color: #5BB543;
 }
 
 /*===========================
@@ -4999,13 +4999,13 @@ footer .line-shape {
 
 .swiper.category-slider .slider-navigations .swiper-button-prev-c i,
 .swiper.category-slider .slider-navigations .swiper-button-next-c i {
-  color: #FF6635;
+  color: #5BB543;
   transition: all 0.5s ease-out 0s;
 }
 
 .swiper.category-slider .slider-navigations .swiper-button-prev-c:hover,
 .swiper.category-slider .slider-navigations .swiper-button-next-c:hover {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .swiper.category-slider .slider-navigations .swiper-button-prev-c:hover i,
@@ -5048,7 +5048,7 @@ footer .line-shape {
 }
 
 .category-slide .thumb.orange {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .category-slide .thumb.green {
@@ -5099,7 +5099,7 @@ footer .line-shape {
 }
 
 .category-slide:hover .category-inner h4 a {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .view-more {
@@ -5194,29 +5194,29 @@ footer .line-shape {
 ===========================*/
 .single-service.layout-2.layout-3 .thumb .tag a,
 .single-service.layout-2.layout-3 .thumb .wish a {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .single-service.layout-2.layout-3 .thumb .tag a:hover,
 .single-service.layout-2.layout-3 .thumb .wish a:hover {
   background-color: #fff;
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .single-service.layout-2.layout-3 .single-inner h4 a:hover {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .single-service.layout-2.layout-3 .single-inner .started a {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .single-service.layout-2.layout-3 .single-inner .started a span {
-  border: 1px solid #FF6635;
+  border: 1px solid #5BB543;
 }
 
 .single-service.layout-2.layout-3 .single-inner .started span {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .single-service.layout-2.layout-3:hover .thumb a img {
@@ -5224,11 +5224,11 @@ footer .line-shape {
 }
 
 .single-service.layout-2.layout-3:hover .single-inner h4 a {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .single-service.layout-2.layout-3:hover .started a span {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .single-service.layout-2.layout-3:hover .started a span i {
@@ -5377,7 +5377,7 @@ footer .line-shape {
 .choose-reasons .single-reason .icon i {
   height: 60px;
   width: 60px;
-  border: 1px solid #FF6635;
+  border: 1px solid #5BB543;
   box-sizing: border-box;
   display: block;
   text-align: center;
@@ -5453,13 +5453,13 @@ footer .line-shape {
 
 .regular-services .sec-title .slider-navigations .swiper-button-prev-c i,
 .regular-services .sec-title .slider-navigations .swiper-button-next-c i {
-  color: #FF6635;
+  color: #5BB543;
   transition: all 0.5s ease-out 0s;
 }
 
 .regular-services .sec-title .slider-navigations .swiper-button-prev-c:hover,
 .regular-services .sec-title .slider-navigations .swiper-button-next-c:hover {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .regular-services .sec-title .slider-navigations .swiper-button-prev-c:hover i,
@@ -5504,7 +5504,7 @@ footer .line-shape {
 }
 
 .new-shop-here .slick-dots .slick-active {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .new-shop-here .slick-dots li {
@@ -5628,7 +5628,7 @@ footer .line-shape {
   top: -20px;
   height: 180px;
   width: 200px;
-  background: #FF6635;
+  background: #5BB543;
   opacity: 0.5;
   border-radius: 5px;
   z-index: -1;
@@ -5672,7 +5672,7 @@ footer .line-shape {
 
 .swiper.testimonial-slider-three .slider-navigations .swiper-button-prev-c:hover,
 .swiper.testimonial-slider-three .slider-navigations .swiper-button-next-c:hover {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .swiper.testimonial-slider-three .slider-navigations .swiper-button-prev-c:hover i,
@@ -5707,7 +5707,7 @@ footer .line-shape {
   background-color: rgba(255, 102, 53, 0.15);
   font-size: 30px;
   border-radius: 50%;
-  color: #FF6635;
+  color: #5BB543;
   animation-name: ripple2;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
@@ -5746,7 +5746,7 @@ footer .line-shape {
   font-family: "Rubik", sans-serif;
   font-weight: 700;
   font-size: 25px;
-  color: #FF6635;
+  color: #5BB543;
   margin-bottom: 0;
 }
 
@@ -5802,7 +5802,7 @@ footer .line-shape {
 }
 
 .single-blog.layout-3 .blog-thumb .date span {
-  background-color: #FF6635;
+  background-color: #5BB543;
   border-radius: 30px;
   padding: 8px 15px;
   font-family: "Rubik", sans-serif;
@@ -5824,15 +5824,15 @@ footer .line-shape {
 }
 
 .single-blog.layout-3 .blog-inner > a {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .single-blog.layout-3 .blog-inner > a span {
-  border: 1px solid #FF6635;
+  border: 1px solid #5BB543;
 }
 
 .single-blog.layout-3 .blog-inner > a span i {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .single-blog.layout-3:hover .blog-thumb img {
@@ -5840,11 +5840,11 @@ footer .line-shape {
 }
 
 .single-blog.layout-3:hover .blog-inner h4 a {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .single-blog.layout-3:hover .blog-inner > a span {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .single-blog.layout-3:hover .blog-inner > a span i {
@@ -5961,7 +5961,7 @@ footer .line-shape {
   font-style: normal;
   display: none;
   font-size: 32px;
-  color: #FF6635;
+  color: #5BB543;
   text-transform: capitalize;
 }
 
@@ -6002,19 +6002,19 @@ footer .line-shape {
 }
 
 .footer-3 .footer-widget h4:before, .footer-3 .footer-widget h4:after {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .footer-3 .footer-widget .footer-menu li a:hover {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .footer-3 .footer-widget .information .desc a:hover {
-  color: #FF6635;
+  color: #5BB543;
 }
 
 .footer-3 .footer-widget .information .icon i {
-  color: #FF6635;
+  color: #5BB543;
   font-size: 20px;
 }
 
@@ -6022,8 +6022,8 @@ footer .line-shape {
   color: #FFFFFF;
   padding: 15px 20px;
   border-radius: 5px;
-  border: 1px solid #FF6635;
-  background-color: #FF6635;
+  border: 1px solid #5BB543;
+  background-color: #5BB543;
 }
 
 .footer-content {
@@ -6174,7 +6174,7 @@ footer .line-shape {
 }
 
 .footer-right .footer-social-footer ul li a:hover {
-  background-color: #FF6635;
+  background-color: #5BB543;
 }
 
 .footer-widgets-group {
@@ -6231,7 +6231,7 @@ footer .line-shape {
 
 .copy-right-txt span a {
   display: inline-block;
-  color: #FF6635;
+  color: #5BB543;
   font-weight: 600;
   transition: all 0.5s ease-out 0s;
 }
