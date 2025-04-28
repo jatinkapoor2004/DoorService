@@ -2,6 +2,7 @@
 package com.jatin.project.DoorStepService.DoorToDoorService.controllers;
 
 import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.DBLoader;
+import jakarta.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,31 @@ public class userRestControllers
                 
             }
         } catch (Exception e) 
+        {
+            return e.toString();
+        }
+    }
+    
+    @PostMapping("/checkUserCreds")
+    public String checkUserCreds(HttpSession session,@RequestParam String email, @RequestParam String pass)
+    {
+        try 
+        {
+            //ResultSet rs = DBLoader.executeQuery("select * from admin where email='"+email+"' and pass='"+pass);
+            ResultSet rs = DBLoader.executeQuery("select * from users where email='" + email + "' and pass='" + pass + "'");
+
+            if(rs.next())
+            {
+                session.setAttribute("id", rs.getInt("id"));
+                
+                return "success";
+            }
+            else
+            {
+                return "fail";
+            }
+        } 
+        catch (Exception e) 
         {
             return e.toString();
         }

@@ -33,71 +33,40 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Title -->
     <script>
-        
-        
-        function UserSignUp()
+        function checkUserCreds()
         {
-            alert("User sign up function called ");
-            var name = document.getElementById("name").value;
-            var email = document.getElementById("email").value;
-            var pass = document.getElementById("password").value;           
-            var contact = document.getElementById("contact").value;
-            let photo = document.getElementById("photo").files[0];
-            var address = document.getElementById("address").value;
+            alert("go ");
             
-            console.log(name);
-            console.log(email);
-            console.log(pass);
-            console.log(contact);
-            console.log(address);
-            if(!name)
-            {
-                alert("Name Cannot be Empty !");
-            }
-            else if(!email)
-            {
-                alert("Email cannot be Empty !");
-            }
-            else if(!pass)
-            {
-                alert("Password Cannot be Empty !");
-            }
+            let email = document.getElementById("email").value;
+            let pass = document.getElementById("password").value;
             
-            else if(!contact)
+            if(email==="" || pass ==="")
             {
-                alert("Contact Cannot be Empty !");
-            }
-            else if(!photo)
-            {
-                alert("Photo Cannot be Empty !");
-            }
-            else if(!address)
-            {
-                alert("Address Cannot be Empty !");
+                alert("email and pass are required");
             }
             else
-            {               
+            {
+                
                 var formdata = new FormData();
-                formdata.append("name", name);  
-                formdata.append("email", email);
+                formdata.append("email", email);  
                 formdata.append("pass", pass);
-                formdata.append("contact", contact);
-                formdata.append("photo", photo);
-                formdata.append("address", address);
 
-                fetch("/UserSignUp",{ method:"POST",body: formdata })
+                fetch("/checkUserCreds",{ method:"POST",body: formdata })
                         .then(response => response.text())
                         .then(ans => renderHTML(ans));      
             }
-            
         }
         function renderHTML(ans)
         {
-            alert(ans);
-            if(ans==="Success")
-            window.location.href = "/UserLogin";
-            
-            console.log(ans);
+            if(ans==="success")
+            {
+                //this line send the request to controller not to the file itself
+                window.location.href ="/AdminHome";
+            }
+            else
+            {
+                alert("Login Creds Doesn't Match");
+            }
         }
     </script>
 </head>
@@ -105,7 +74,7 @@
 <body>
 
     <!--Start preloader area -->
-        <div class="egns-preloader">
+    <div class="egns-preloader">
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-6">
@@ -217,8 +186,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumb-wrapper">
-                        <h2> User Sign Up</h2>
-                        <span><a href="index.html">Home</a><i class="bi bi-chevron-right"></i>User Sign Up</span>
+                        <h2> User Log In</h2>
+                        <span><a href="index.html">Home</a><i class="bi bi-chevron-right"></i>User Log In</span>
                         <div class="arrow-down">
                             <a href="#down"><i class="bi bi-chevron-down"></i></a>
                         </div>
@@ -233,12 +202,9 @@
     <section id="down" class="login-area sec-p">
         <div class="container">
             <div class="login-form">
-                <h3>Sign Up</h3>
-                <span>New User? <a href="#">SignUp here</a></span>
+                <h3>Log In</h3>
+                <span>Existing Member? <a href="sign-up.html">Login here</a></span>
                 <form >
-                    <label for="name">Name*
-                        <input type="text" name="name" id="name" placeholder="Enter Your Name">
-                    </label>
                     <label for="email">Email*
                         <input type="email" name="email" id="email" placeholder="Your Email Here">
                     </label>
@@ -246,22 +212,20 @@
                         <i class="bi bi-eye-slash" id="togglePassword"></i>
                         <input type="password" name="email" id="password" placeholder="Type Your Password">
                     </label>
-                    
-                    <label for="contact">Contact*
-                        <input type="text" name="contact" id="contact" placeholder="Contact Number" >
-                    </label>
-                    
-                    <label for="photo"> Profile Photo
-                         <input type="file" name="photo" id="photo" >
-                    </label>
-                    <label for="address">Address*
-                         <textarea name="address" id="address" placeholder="Enter Home Address" rows="3" style="width: 100%;"></textarea>
-                    </label>
-                    
-                    
-
-                    <input type="button" value="Sign Up" onclick="UserSignUp()" >
+<!--                    <div class="terms-forgot">
+                        <p><input type="checkbox" name="agree">I agree to the <a href="#">Terms & Policy</a></p>
+                        <a href="#">Forgot Your Password</a>
+                    </div>-->
+                    <input type="button" value="Login" onclick="checkUserCreds()">
                 </form>
+<!--                <div class="other-signup">
+                    <h4>or Sign up WITH</h4>
+                    <div class="others-account">
+                        <a href="#" class="google"><i class="fab fa-google"></i>Signup with google</a>
+                        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Sign up with facebook</a>
+                    </div>
+                </div>-->
+                <!--<p>By clicking the "Sign up" button, you create a Cobiro account, and you agree to Cobiro's <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy.</a></p>-->
             </div>
         </div>
     </section>
