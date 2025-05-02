@@ -45,12 +45,12 @@
             }
             function renderHtml(ans)
             {
-                console.log(ans);
-                console.log(typeof ans);
+                //console.log(ans);
+                //console.log(typeof ans);
                 ans = JSON.parse(ans);
                 let arrObj = ans["ans"];
-                console.log(arrObj);
-                console.log(typeof arrObj);
+                //console.log(arrObj);
+                //console.log(typeof arrObj);
                 let finalhtml = "";
                 for (let i = 0; i < arrObj.length; i++)
                 {
@@ -68,12 +68,12 @@
             
             function renderData(ans)
             {
-                console.log(ans);
-                console.log(typeof ans);
+                //console.log(ans);
+                //console.log(typeof ans);
                 ans = JSON.parse(ans);
                 let arrObj = ans["ans"];
-                console.log(arrObj);
-                console.log(typeof arrObj);
+                //console.log(arrObj);
+                //console.log(typeof arrObj);
                 let finalhtml = "";
                 for(let i=0;i<arrObj.length;i++)
                 {
@@ -94,6 +94,12 @@
                     
                 }
                 document.getElementById("myDivToShowCityAsCards").innerHTML=finalhtml;
+            }
+            
+            function handleCityChange(selectedCity)
+            {
+                console.log(selectedCity.value);
+                window.location.href = "/ServicesForSelectedCity?cityId="+selectedCity.value;
             }
         </script>
     </head>
@@ -218,7 +224,8 @@
                             <div class="location-search">
                                 <div class="location-btn">
                                     <i><img src="assets/images/icons/location.svg" alt=""></i>
-                                    <select id="myDivForCities" class="loc-select">
+                                    
+                                    <select id="myDivForCities" class="loc-select" onchange="handleCityChange(this)">
                                         
                                     </select>
                                 </div>

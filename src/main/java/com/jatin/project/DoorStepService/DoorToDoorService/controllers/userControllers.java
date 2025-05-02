@@ -4,21 +4,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class userControllers 
-{
+public class userControllers {
+
     @GetMapping("/UserSignUp")
-    public String UserSignUp()
-    {
+    public String UserSignUp() {
         return "/UserSignUp";
     }
+
     @GetMapping("/UserLogin")
-    public String UserLogin()
-    {
+    public String UserLogin() {
         return "/UserLogin";
     }
+
     @GetMapping("/UserHome")
-    public String UserHome()
-    {
+    public String UserHome() {
         return "/UserHome";
+    }
+    @GetMapping("/ServicesForSelectedCity")
+    public String ServicesForSelectedCity() {
+        return "/UserHome_ServicesForSelectedCity";
     }
 }
