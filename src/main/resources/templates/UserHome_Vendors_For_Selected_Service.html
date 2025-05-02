@@ -33,23 +33,26 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Title -->
         <script>
-            function showServicesInUserHome()
+            function showVendorsInUserHome()
             {
-                const params = new URLSearchParams(window.location.search);
-                const id = params.get('cityId');
-                console.log(id +" in userhome");
-                fetch("/showServicesInUserHome?cityId="+id)
+               const params = new URLSearchParams(window.location.search);
+                const cityid = params.get('cityId');
+                const serviceid = params.get('serviceId');
+                console.log(cityid +"  "+ serviceid);
+                
+                fetch("/showVendorsInUserHome?cityId="+cityid+"&serviceId="+serviceid)
                         .then((res) => res.text())
-                        .then((ans) => renderHtml(ans,id));
+                        .then((ans) => renderHtml(ans));              
             }
+            
             function renderHtml(ans,id)
             {
-                console.log(ans);
-                console.log(typeof ans);
+                //console.log(ans);
+                //console.log(typeof ans);
                 ans = JSON.parse(ans);
                 let arrObj = ans["ans"];
-                console.log(arrObj);    
-                console.log(typeof arrObj);
+                //console.log(arrObj);    
+                //console.log(typeof arrObj);
                 let finalhtml="";
                 for(let i=0;i<arrObj.length;i++)
                 {
@@ -57,34 +60,36 @@
                     finalhtml += ` <div class="col-md-6 col-lg-4 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
                         <div class="single-service layout-2">
                             <div class="thumb">
-                                <a href="/VendorsForSelectedCity?cityId=${id}&serviceId=${finalObj.serviceid}"><img src="myuploads${finalObj.servicephoto}" alt=""></a>
+                                <a href="#"><img src="myuploads${finalObj.photo}" alt=""></a>
                             </div>
                             <div class="single-inner">
                                 <div class="author-info">
                                     <div class="author-thumb">
                                     </div>
                                     <div class="author-content">
-                                        <span>${finalObj.servicename}</span>
+                                        <span>${finalObj.name}</span>
                                     </div>
                                 </div>
-                                <h4><a href="/VendorsForSelectedCity?cityId=${id}&serviceId=${finalObj.serviceid}">${finalObj.servicedesc}</a></h4>
+                                <h4><a href="#">${finalObj.desc}</a></h4>
 
                                 <div class="started">
-                                    <a href="/VendorsForSelectedCity?cityId=${id}&serviceId=${finalObj.serviceid}">View Details<span><i class="bi bi-arrow-right"></i></span></a>
+                                    <a href="#">View Details<span><i class="bi bi-arrow-right"></i></span></a>
+                                    <span><small>₹</small>${finalObj.price}</span>
                                 </div>
                             </div>
                         </div>
                     </div>`;
                 }
-                document.getElementById("showServicesInCards").innerHTML = finalhtml;
+                document.getElementById("showVendorsInCards").innerHTML = finalhtml;
 
             }
+           
         </script>
 </head>
 
     
 
-<body onload="showServicesInUserHome()">
+<body onload="showVendorsInUserHome()">
 
     <!--Start preloader area -->
 <!--    <div class="egns-preloader">
@@ -200,7 +205,7 @@
                 <div class="col-12">
                     <div class="breadcrumb-wrapper">
                         <h2>Our Services</h2>
-                        <span><a href="/UserHome">Home</a><i class="bi bi-chevron-right"></i>Our Services</span>
+                        <span><a href="/UserHome">Home</a><i class="bi bi-chevron-right"></i>Our Vendors</span>
                         <div class="arrow-down">
                             <a href="#down"><i class="bi bi-chevron-down"></i></a>
                         </div>
@@ -214,50 +219,10 @@
     <!-- Start services-area section -->
     <section id="down" class="services-area sec-m-top">
         <div class="container">
-            <div class="service-selection wow animate fadeInUp" data-wow-delay="1800ms" data-wow-duration="1500ms">
-                <form action="#" method="post">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="service-loc-selection">
-                                <i><img src="assets/images/icons/location.svg" alt=""></i>
-                                <select class="loc-select">
-                                    <option selected>Chattogram</option>
-                                    <option value="dhaka">Dhaka</option>
-                                    <option value="barisal">Barisal</option>
-                                    <option value="khulna">Khulna</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-9">
-                            <div class="service-multi-slection">
-                                <select class="srv-select">
-                                    <option selected>Select Category</option>
-                                    <option value="Saloon">Saloon</option>
-                                    <option value="Cleaning">Cleaning</option>
-                                    <option value="Ac repair">Ac repair</option>
-                                    <option value="Spa & beauty">Spa & beauty</option>
-                                </select>
-                                <select class="srv-select">
-                                    <option selected>Price Reange</option>
-                                    <option value="500-1000">500-1000</option>
-                                    <option value="1000-2000">1000-2000</option>
-                                    <option value="2000-5000">2000-5000</option>
-                                </select>
-                                <select class="srv-select">
-                                    <option selected>Rating</option>
-                                    <option value="3.5 Star">3.5 Star</option>
-                                    <option value="4.5 Star">4.5 Star</option>
-                                    <option value="5 Star">5 Star</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="row g-4" id="showServicesInCards">
+           
+            <div class="row g-4" id="showVendorsInCards">
                 
-               show cards here ;
+               show vendor cards here ;
                 
             </div>
             

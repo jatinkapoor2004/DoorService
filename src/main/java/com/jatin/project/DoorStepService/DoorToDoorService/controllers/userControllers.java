@@ -24,4 +24,8 @@ public class userControllers {
     public String ServicesForSelectedCity() {
         return "/UserHome_ServicesForSelectedCity";
     }
+    @GetMapping("/VendorsForSelectedCity")
+    public String VendorsForSelectedCity() {
+        return "/UserHome_Vendors_For_Selected_Service";
+    }
 }
