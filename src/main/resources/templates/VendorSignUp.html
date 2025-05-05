@@ -120,18 +120,20 @@
             var contact = document.getElementById("contact").value;
             let photo = document.getElementById("photo").files[0];
             var desc = document.getElementById("desc").value;
+            var inc = document.getElementById("inc").value;
+            var exc = document.getElementById("exc").value;
             
-            console.log(name);
-            console.log(email);
-            console.log(pass);
-            console.log(city);
-            console.log(service);
-            console.log(subservice);
-            console.log(starttime);
-            console.log(endtime);
-            console.log(price);
-            console.log(contact);
-            console.log(desc);
+//            console.log(name);
+//            console.log(email);
+//            console.log(pass);
+//            console.log(city);
+//            console.log(service);
+//            console.log(subservice);
+//            console.log(starttime);
+//            console.log(endtime);
+//            console.log(price);
+//            console.log(contact);
+//            console.log(desc);
             if(!name)
             {
                 alert("Name Cannot be Empty !");
@@ -180,6 +182,14 @@
             {
                 alert("Description Cannot be Empty !");
             }
+            else if(!inc)
+            {
+                alert("Included Section Cannot be Empty !");
+            }
+            else if(!exc)
+            {
+                alert("Excluded Section Cannot be Empty !");
+            }
             else
             {               
                 var formdata = new FormData();
@@ -195,6 +205,8 @@
                 formdata.append("contact", contact);
                 formdata.append("photo", photo);
                 formdata.append("desc", desc);
+                formdata.append("inc", inc);
+                formdata.append("exc", exc);
 
                 fetch("/VendorSignUp",{ method:"POST",body: formdata })
                         .then(response => response.text())
@@ -387,7 +399,13 @@
                                 <input type="file" name="photo" id="photo" >
                     </label>
                     <label for="desc">Description*
-                         <textarea name="desc" id="desc" placeholder="Enter Description" rows="4" style="width: 100%;"></textarea>
+                         <textarea name="desc" id="desc" placeholder="Enter Service Description" rows="4" style="width: 100%;"></textarea>
+                    </label>
+                    <label for="inc">What's Included*
+                         <textarea name="inc" id="inc" placeholder="Enter what's included in Service (Comma's Separated)" rows="4" style="width: 100%;"></textarea>
+                    </label>
+                    <label for="exc">What's Excluded*
+                         <textarea name="exc" id="exc" placeholder="Enter what's excluded in Service (Comma's Separated)" rows="4" style="width: 100%;"></textarea>
                     </label>
                     
 

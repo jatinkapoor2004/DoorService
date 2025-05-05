@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class vendorRestControllers 
 {
     @PostMapping("/VendorSignUp")
-    public String VendorSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String pass, @RequestParam String city, @RequestParam String service, @RequestParam String subservice, @RequestParam String starttime, @RequestParam String endtime, @RequestParam String price, @RequestParam String contact, @RequestParam String desc,@RequestParam MultipartFile photo)
+    public String VendorSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String pass, @RequestParam String city, @RequestParam String service, @RequestParam String subservice, @RequestParam String starttime, @RequestParam String endtime, @RequestParam String price, @RequestParam String contact, @RequestParam String desc,@RequestParam MultipartFile photo,@RequestParam String inc,@RequestParam String exc)
     {
         String projectPath = System.getProperty("user.dir");
         String internal_path = "/src/main/resources/static";
@@ -60,6 +60,8 @@ public class vendorRestControllers
                 rs.updateString("desc", desc);
                 rs.updateString("status", "Blocked");
                 
+                rs.updateString("included", inc);
+                rs.updateString("notincluded", exc);
                 
                 rs.updateString("photo", orgName);
                 

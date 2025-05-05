@@ -60,7 +60,7 @@
                     finalhtml += ` <div class="col-md-6 col-lg-4 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
                         <div class="single-service layout-2">
                             <div class="thumb">
-                                <a href="#"><img src="myuploads${finalObj.photo}" alt=""></a>
+                                <a href="/SingleVendorDetail?vid=${finalObj.id}"><img src="myuploads${finalObj.photo}" alt=""></a>
                             </div>
                             <div class="single-inner">
                                 <div class="author-info">
@@ -70,10 +70,10 @@
                                         <span>${finalObj.name}</span>
                                     </div>
                                 </div>
-                                <h4><a href="#">${finalObj.desc}</a></h4>
+                                <h4><a href="SingleVendorDetail?vid=${finalObj.id}">${finalObj.desc}</a></h4>
 
                                 <div class="started">
-                                    <a href="#">View Details<span><i class="bi bi-arrow-right"></i></span></a>
+                                    <a href="SingleVendorDetail?vid=${finalObj.id}">View Details<span><i class="bi bi-arrow-right"></i></span></a>
                                     <span><small>₹</small>${finalObj.price}</span>
                                 </div>
                             </div>

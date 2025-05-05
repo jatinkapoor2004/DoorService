@@ -92,5 +92,13 @@ public class userRestControllers {
         String ans = new RDBMS_TO_JSON().generateJSON("SELECT * FROM vendors where city="+cityid+" and service="+serviceid+" and status='Accepted'" );
         return ans;
     }
+    @GetMapping("/getSingleVendorDetails")
+    public String getSingleVendorDetails(@RequestParam String vid)
+    {
+        int vId = Integer.parseInt(vid);
+        
+        String ans = new RDBMS_TO_JSON().generateJSON("SELECT vendors.*,services.* FROM vendors  JOIN services ON services.serviceid=vendors.service where vendors.id ="+vId );
+        return ans;
+    }
 
 }

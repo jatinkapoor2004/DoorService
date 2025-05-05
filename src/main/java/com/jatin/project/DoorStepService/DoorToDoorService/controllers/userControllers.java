@@ -28,4 +28,8 @@ public class userControllers {
     public String VendorsForSelectedCity() {
         return "/UserHome_Vendors_For_Selected_Service";
     }
+    @GetMapping("/SingleVendorDetail")
+    public String SingleVendorDetail() {
+        return "/UserHome_Single_Vendor_Details";
+    }
 }
