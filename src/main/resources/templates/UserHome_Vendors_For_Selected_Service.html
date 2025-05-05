@@ -60,17 +60,34 @@
                     finalhtml += ` <div class="col-md-6 col-lg-4 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
                         <div class="single-service layout-2">
                             <div class="thumb">
-                                <a href="/SingleVendorDetail?vid=${finalObj.id}"><img src="myuploads${finalObj.photo}" alt=""></a>
+                                <a href="/SingleVendorDetail?vid=${finalObj.id}"><img src="myuploads${finalObj.photo}" alt=""  style="width: 100%; height: 200px; object-fit: contain; border-radius: 10px;"></a>
                             </div>
                             <div class="single-inner">
                                 <div class="author-info">
                                     <div class="author-thumb">
                                     </div>
                                     <div class="author-content">
-                                        <span>${finalObj.name}</span>
+                                        <h4>${finalObj.name}</h4>
                                     </div>
                                 </div>
-                                <h4><a href="SingleVendorDetail?vid=${finalObj.id}">${finalObj.desc}</a></h4>
+                                <h6
+                                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; cursor: pointer;" 
+                                    onclick="
+                                      if (this.getAttribute('data-expanded') === 'true') {
+                                        this.style.whiteSpace = 'nowrap';
+                                        this.style.overflow = 'hidden';
+                                        this.style.textOverflow = 'ellipsis';
+                                        this.setAttribute('data-expanded', 'false');
+                                      } else {
+                                        this.style.whiteSpace = 'normal';
+                                        this.style.overflow = 'visible';
+                                        this.style.textOverflow = 'clip';
+                                        this.setAttribute('data-expanded', 'true');
+                                      }
+                                    " 
+                                    data-expanded="false">
+                                    ${finalObj.desc}
+                                </h6>
 
                                 <div class="started">
                                     <a href="SingleVendorDetail?vid=${finalObj.id}">View Details<span><i class="bi bi-arrow-right"></i></span></a>

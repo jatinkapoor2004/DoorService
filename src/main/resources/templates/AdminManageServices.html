@@ -44,19 +44,19 @@
         }
         function renderData(ans)
         {
-            console.log(ans);
-            console.log(typeof ans);
+            //console.log(ans);
+            //console.log(typeof ans);
             ans = JSON.parse(ans);
             let arrObj = ans["ans"];
-            console.log(arrObj);    
-            console.log(typeof arrObj);
+            //console.log(arrObj);    
+            //console.log(typeof arrObj);
             let finalhtml="";
             finalhtml += "<div class=\"swiper creative-service-slider-two\">";
             finalhtml +=    "<div class=\"swiper-wrapper\">";
             for(var i=0;i<arrObj.length;i++)
             {
                 var finalObj = arrObj[i];
-                console.log(finalObj);
+                //console.log(finalObj);
                 
                 
                 finalhtml +=        "<div class=\"swiper-slide wow animate fadeInLeft\" data-wow-delay=\"200ms\" data-wow-duration=\"1500ms\">";
@@ -74,7 +74,7 @@
             }
             finalhtml +=    "</div>"
             finalhtml += "</div>"
-            console.log(finalhtml);
+            //console.log(finalhtml);
             document.getElementById("mydiv").innerHTML = finalhtml;
             const swiper = new Swiper('.creative-service-slider-two', {
                    loop: true,
@@ -130,7 +130,7 @@
         
         function deleteService(id)
         {
-            alert("delete Service called");
+            alert("delete Service called" +id);
             fetch("/deleteService?id="+id)
                     .then(res=>res.text())
                     .then(ans=>showres(ans))

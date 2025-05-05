@@ -53,7 +53,7 @@
                 let finalHtml = `<div class="col-lg-8">
                         <div class="service-details">
                             <div class="service-details-thumbnail">
-                                <img src="myuploads${finalObj.servicephoto}" alt="">
+                                <img src="myuploads${finalObj.servicephoto}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                             </div>
                             <H2>${finalObj.servicename} (${finalObj.subservice})</H2>
                             <div class="service-tabs wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
@@ -172,12 +172,17 @@
                                     <h4>Service Price <span><small>Rs</small>${finalObj.price}</span></h4>
                                     <div class="package">
                                         <h4>Our Package</h4>
-                                        <ul class="package-list">
-                                            <li><i class="bi bi-check-all"></i>Garbage Disposal Services</li>
-                                            <li><i class="bi bi-check-all"></i>Water Heater Repair Services</li>
-                                            <li><i class="bi bi-check-all"></i>Toilet Repair</li>
-                                            <li><i class="bi bi-check-all"></i>Kitchen Cleaner</li>
-                                        </ul>
+                                        <ul class="package-list">`
+                                            bulletData = finalObj.included;
+                                            //console.log(bulletData);
+                                            var items = bulletData.split(",");
+                                            for (var i = 0; i < items.length; i++)
+                                            {
+                                                finalHtml+=`<li><i class="bi bi-check-all"></i>${items[i].trim()}</li>`
+                                            }
+                                           
+                                            
+                                    finalHtml+=    `</ul>
                                     </div>
                                     <div class="book-btn">
                                         <a href="contact.html">Order Now</a>
@@ -186,14 +191,15 @@
                             </div>
                             <div class="service-widget wow animate fadeInRight" data-wow-delay="400ms" data-wow-duration="1500ms">
                                 <div class="about-seller">
-                                    <div class="thumb">
-                                        <img src="myuploads${finalObj.photo}" alt="">
+                                    <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; border: 2px solid #ccc;">
+                                        <img src="myuploads${finalObj.photo}" alt="" 
+                                             style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
                                     <h3>About Seller</h3>
                                     <p>${finalObj.desc}</p>
                                     <div class="seller-information">
                                         <div class="single-info">
-                                            <h5>Order Complete<span>2000</span></h5>
+                                            <h5>Name<span>${finalObj.name}</span></h5>
                                         </div>
                                         <div class="single-info">
                                             <h5>Seller Rating
@@ -208,12 +214,7 @@
                                             </h5>
                                         </div>
                                     </div>
-                                    <ul class="seller-social">
-                                        <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="https://www.pinterest.com/"><i class="fab fa-pinterest-p"></i></a></li>
-                                        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
-                                    </ul>
+                                    
                                 </div>
                             </div>
                         </div>

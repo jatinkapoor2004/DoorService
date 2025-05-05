@@ -117,6 +117,7 @@ public class adminRestControllers
         }
     }
     
+    
      @PostMapping("/AdminManageService")
     public String adminAddService(@RequestParam String sname, @RequestParam String sdesc ,@RequestParam MultipartFile sphoto)
     {
@@ -175,9 +176,12 @@ public class adminRestControllers
         String ans = new RDBMS_TO_JSON().generateJSON("select * from services");
         return ans;
     }
+    
+    @GetMapping("/deleteService")
     public String deleteService(@RequestParam String id)
     {
         int myid = Integer.parseInt(id);
+        System.out.println(myid);
         try 
         {
             ResultSet rs= DBLoader.executeQuery("select * from services where serviceid="+myid);
