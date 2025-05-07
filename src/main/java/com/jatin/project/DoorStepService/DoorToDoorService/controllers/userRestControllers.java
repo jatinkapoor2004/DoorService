@@ -5,6 +5,8 @@ import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.RDBMS_TO_JS
 import jakarta.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -99,6 +101,68 @@ public class userRestControllers {
         
         String ans = new RDBMS_TO_JSON().generateJSON("SELECT vendors.*,services.* FROM vendors  JOIN services ON services.serviceid=vendors.service where vendors.id ="+vId );
         return ans;
+    }
+    
+    @GetMapping("getPhotosServiceBySingleVendor")
+    public String getPhotosServiceBySingleVendor(@RequestParam String vid)
+    {
+        int vId = Integer.parseInt(vid);
+        String ans = new RDBMS_TO_JSON().generateJSON("select vendorphotos.* from vendorphotos JOIN vendors ON vendors.id = vendorphotos.vid where vid ="+vId);
+        return ans;
+    }
+@GetMapping("/view_slots")
+    String view_slots(@RequestParam String vendorId, @RequestParam String date) {
+
+        System.out.println(date);
+        System.out.println(vendorId);
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from vendors where id=" + vendorId + " ");
+
+            String start;
+            String end;
+            String slot;
+            if (rs.next()) 
+            {
+                start = rs.getString("starttime");
+                end = rs.getString("endtime");
+                slot = rs.getString("price");
+
+            } 
+            else 
+            {
+                String err = "failed";
+                return err;
+            }
+            int Start = Integer.parseInt(start);
+            int End = Integer.parseInt(end);
+            int Slot = Integer.parseInt(slot);
+            JSONObject ans = new JSONObject();
+
+            //Define JSONArray
+            JSONArray arr = new JSONArray();
+            for (int i = Start; i <= End; i++) {
+                JSONObject row = new JSONObject();
+                row.put("start_slot", Start);
+                row.put("end_slot", ++Start);
+                row.put("slot_amount", slot);
+
+                ResultSet rs2 = DBLoader.executeQuery("select * from booking_detail where start_slot ='" + i + "' and booking_id in (select booking_id from booking where date=\'" + date + "\' and vendor_id =" + vendorId + " ) ");
+                if (rs2.next()) {
+                    row.put("status", "Booked");
+                } else {
+                    row.put("status", "Available");
+                }
+
+                arr.add(row);
+            }
+            ans.put("ans", arr);
+            System.out.println(ans.toString());
+            return (ans.toJSONString());
+
+        } catch (Exception e) {
+            return e.toString();
+        }
+
     }
 
 }

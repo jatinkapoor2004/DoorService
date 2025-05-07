@@ -32,4 +32,9 @@ public class userControllers {
     public String SingleVendorDetail() {
         return "/UserHome_Single_Vendor_Details";
     }
+    @GetMapping("/ServiceBookingDateSelection")
+    public String ServiceBookingDateSelection()
+    {
+        return "/User_Service_Booking_Date_Selection";
+    }
 }

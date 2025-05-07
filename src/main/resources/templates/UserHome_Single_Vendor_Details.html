@@ -33,10 +33,12 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <!-- Title -->
         <script>
+            let vendorId;
             function showVendorDetails()
             {
                 const params = new URLSearchParams(window.location.search);
-                const vendorId = params.get('vid');
+                vendorId = params.get('vid');
+                //console.log(vendorId);
                 fetch("/getSingleVendorDetails?vid=" + vendorId)
                         .then((res) => res.text())
                         .then((ans) => renderHtml(ans))
@@ -48,7 +50,7 @@
                 let arrObj = ans["ans"];
                 //console.log(arrObj);
                 let finalObj = arrObj[0];
-                console.log(finalObj);
+                //console.log(finalObj);
 
                 let finalHtml = `<div class="col-lg-8">
                         <div class="service-details">
@@ -185,7 +187,7 @@
                                     finalHtml+=    `</ul>
                                     </div>
                                     <div class="book-btn">
-                                        <a href="contact.html">Order Now</a>
+                                        <a href="/ServiceBookingDateSelection?vid=${vendorId}">Order Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -221,10 +223,61 @@
                     </div>`;
                 document.getElementById("showInfoAboutService").innerHTML = finalHtml;
             }
+            
+            function showPhotosOfService(vid)
+            {
+                //console.log(vid);
+                fetch("/getPhotosServiceBySingleVendor?vid="+vid)
+                        .then((res)=>res.text())
+                        .then((ans) =>renderData(ans));
+            }
+            function renderData(ans)
+            {
+                //console.log(ans);
+                ans = JSON.parse(ans);
+                let arrObj = ans["ans"];
+                //console.log(arrObj);
+                
+
+            let finalhtml="";
+            finalhtml += "<div class=\"swiper creative-service-slider-two\">";
+            finalhtml +=    "<div class=\"swiper-wrapper\">";
+            for(var i=0;i<arrObj.length;i++)
+            {
+                var finalObj = arrObj[i];
+                //console.log(finalObj);
+                
+                finalhtml +=        "<div class=\"swiper-slide wow animate fadeInLeft\" data-wow-delay=\"200ms\" data-wow-duration=\"1500ms\">";
+                finalhtml +=            "<div class=\"creative-service-layout-2\">";
+                finalhtml +=                "<div class=\"thumb\">"
+                finalhtml +=                    "<img class='carousel-img' src=\"myuploads"+finalObj.pphoto+"\" alt=\"photo to be rendered\">"
+                finalhtml +=                "</div>"
+                finalhtml +=                "<div class=\"creative-inner-service\">"
+                finalhtml +=                    "<h4>"+ finalObj.pdesc+"</h4>"
+                
+                finalhtml +=                "</div>"
+                finalhtml +=            "</div>"
+                finalhtml +=        "</div>"
+                
+            }
+            finalhtml +=    "</div>"
+            finalhtml += "</div>"
+            console.log(finalhtml);
+            document.getElementById("mydiv").innerHTML = finalhtml; 
+            const swiper = new Swiper('.creative-service-slider-two', {
+                   loop: true,
+                   slidesPerView: 3,
+                   spaceBetween: 30,
+                   navigation: {
+                   nextEl: '.swiper-button-next-c',
+                   prevEl: '.swiper-button-prev-c',
+                  },
+                });
+            }
         </script>
     </head>
 
-    <body onload="showVendorDetails()">
+    <body onload="showVendorDetails(),showPhotosOfService(vendorId)">
 
         <!--Start preloader area -->
         <div class="egns-preloader">
@@ -365,7 +418,7 @@
         <!-- End services-details-area section -->
 
         <!-- Start other-services section -->
-        <section class="other-services-two sec-m-top">
+<!--        <section class="other-services-two sec-m-top">
             <div class="container">
                 <div class="other-services">
                     <h3>Other Services</h3>
@@ -487,8 +540,32 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>-->
         <!-- End other-services section -->
+        
+        <section id="category" class="creative-services sec-p">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="sec-title layout-2">
+                        <div class="title-left">
+                            <span>Galary</span>
+                            <h2>See Photos of Our Service</h2>
+                        </div>
+                        <div class="title-right">
+                            <div class="slider-two-navigations">
+                                <div class="swiper-button-prev-c"><i class="bi bi-arrow-left"></i></div>
+                                <div class="swiper-button-next-c"><i class="bi bi-arrow-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="mydiv">show here </div>
+            
+        </div>
+    </section>
 
         <!-- Start our-brands section -->
         <div class="our-brands sec-m">
