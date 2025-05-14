@@ -5,6 +5,7 @@ import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.RDBMS_TO_JS
 import jakarta.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
+import java.util.StringTokenizer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,7 +64,7 @@ public class userRestControllers {
 
             if (rs.next()) {
                 session.setAttribute("id", rs.getInt("id"));
-
+                System.out.println(session.getAttribute("id"));
                 return "success";
             } else {
                 return "fail";
@@ -163,6 +164,68 @@ public class userRestControllers {
             return e.toString();
         }
 
+    }
+    
+    
+    @GetMapping("/pay")
+    public String payment(@RequestParam String date,
+            @RequestParam String vid,
+            @RequestParam String amount,
+            @RequestParam String slots,
+            HttpSession session,
+            @RequestParam String type,
+            @RequestParam String status) {
+        String ans = "";
+
+        try {
+            
+        int uid = (int) session.getAttribute("id");
+        
+            System.out.println("In Rest Controller");
+            String user_email = "";
+            ResultSet rs4 = DBLoader.executeQuery("select * from users where id ="+uid+" ");
+            if(rs4.next()){
+                user_email = rs4.getString("email");
+            }
+            
+            System.out.println("User Email "+user_email);
+            // 1. Insert into booking table
+            ResultSet rs = DBLoader.executeQuery("SELECT * FROM booking");
+            rs.moveToInsertRow();
+            rs.updateString("date", date);
+            rs.updateString("vendor_id", vid);
+            rs.updateString("user_email", user_email);
+            rs.updateString("total_price", amount);
+            rs.updateString("payment_type", type);
+            rs.updateString("status", status);
+            rs.insertRow();
+
+            // 2. Get inserted booking_id
+            int booking_id = 0;
+            ResultSet rs2 = DBLoader.executeQuery("SELECT MAX(id) AS maxid FROM booking");
+            if (rs2.next()) {
+                booking_id = rs2.getInt("maxid");
+            }
+            System.out.println("Booking ID "+booking_id);
+            // 3. Insert slots into booking_detail table
+            StringTokenizer st = new StringTokenizer(slots, ",");
+            while (st.hasMoreTokens()) {
+                int start_slot = Integer.parseInt(st.nextToken());
+                int end_slot = start_slot + 1;
+
+                ResultSet rs3 = DBLoader.executeQuery("SELECT * FROM booking_detail");
+                rs3.moveToInsertRow();
+                rs3.updateInt("booking_id", booking_id); // fk to booking_id
+                rs3.updateString("start_slot", String.valueOf(start_slot));
+                rs3.updateString("end_slot", String.valueOf(end_slot));
+                rs3.insertRow();
+            }
+
+            ans = "success";
+            return ans;
+        } catch (Exception ex) {
+            return ex.toString();
+        }
     }
 
 }

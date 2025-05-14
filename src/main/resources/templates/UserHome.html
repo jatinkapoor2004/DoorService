@@ -81,13 +81,13 @@
                     finalhtml+= ` <div class="col-md-6 col-lg-4 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
                             <div class="single-blog layout-3">
                                 <div class="blog-thumb">
-                                    <a href="#"><img src="myuploads${finalObj.cityphoto}" alt=""></a>
+                                    <a href="/ServicesForSelectedCity?cityId=${finalObj.cityid}"><img src="myuploads${finalObj.cityphoto}" alt=""></a>
                                 </div>
             
                                 <div class="blog-inner">
-                                    <h4><a href="#">${finalObj.cityname}</a></h4>
+                                    <h4><a href="/ServicesForSelectedCity?cityId="${finalObj.cityid}>${finalObj.cityname}</a></h4>
                                     <p>${finalObj.citydesc}</p>
-                                    <a href="#">Read more<span><i class="bi bi-arrow-right"></i></span></a>
+                                    <a href="/ServicesForSelectedCity?cityId=${finalObj.cityid}">Read more<span><i class="bi bi-arrow-right"></i></span></a>
                                 </div>
                             </div>
                         </div>`;

@@ -33,117 +33,123 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <!-- Title -->
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <!--payment start-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="js/Razorpay.js" type="text/javascript"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <!--payment end-->
+        
+        
+        <script>
+             const params = new URLSearchParams(window.location.search);
+             const amount = params.get("total");
+            function paymentlogic(total)
+            {
 
+                var options = {
+                    "key": "rzp_test_96HeaVmgRvbrfT",
+                    "amount": total + "00",
+                    "name": "Door Step Service",
+                    "description": "",
+                    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOmghn1er2yRA0yXfMRmroSSpWEdAGNV5KHg&usqp=CAU",
+                    "handler": function (response) {
+
+                        if (response.razorpay_payment_id == "" || response.razorpay_payment_id == undefined) {
+
+                            window.location.href = "payment_action?status=failed";
+                            // paymentfail(authormobile,"Payment failed!");
+
+                            alert("Payment Failed")
+
+                        } else {
+                            //success
+                            makePayment('online');
+                            //payment success
+                            //call your book payment function here
+                        }
+                    },
+                    "prefill": {
+                        "name": "HealHub ",
+                        "email": ""
+                    },
+                    "notes": {
+                        "address": ""
+                    },
+                    "theme": {
+                        "color": "#F37254"
+                    },
+                    "modal": {
+                        "ondismiss": function () {
+                            $("#statusmodal").modal("show");
+                            document.getElementById("status").innerHTML = "Payment failed ! Try again";
+                        }
+                    }
+                };
+
+
+
+                var rzp1 = new Razorpay(options);
+                rzp1.on('payment.failed', function (response) {
+                    console.log("a2");
+                    console.log(response.error.code);
+
+                    alert("Payment Failed");
+
+                });
+                rzp1.open();
+            }
+
+        </script>
 
         <script>
+            function online()
+            {
+                paymentlogic(amount);
+            }
 
+            function cash()
+            {
+                makePayment('cash');
+            }
+            function makePayment(type) {
                 const params = new URLSearchParams(window.location.search);
-                var vendorId = params.get('vid');
-            function go() {
+                const date = params.get("date");
+                const vid = params.get("email");
+                const amount = params.get("total");
+                const slots = params.get("slots");
+                const status = "pending";
+                const url = `/pay?date=${encodeURIComponent(date)}&vid=${encodeURIComponent(vid)}&amount=${encodeURIComponent(amount)}&slots=${encodeURIComponent(slots)}&type=${encodeURIComponent(type)}&status=${encodeURIComponent(status)}`;
 
-
-                var s = document.getElementById("datepicker").value;
-                console.log(s);
-
-                if (s === '')
-                {
-                    alert("Choose Dates first");
-                } 
-                else 
-                {
-
-                    var url = "/view_slots?vendorId=" + vendorId + "&date=" + s;
-                    fetch(url)
-                            .then(response => response.text())
-                            .then(ans => renderhtml(ans));
-                }
-
-            }
-            var slot_amount = 0;
-
-            function renderhtml(ans) {
-                console.log(ans)
-                var mainobj = JSON.parse(ans);
-                var arr = mainobj.ans;
-                var count = 1;
-                var output = '<table class="table table-hover">';
-                output += ' <tr>';
-                output += ' <th>Index Number</th>';
-                output += '<th>Start Slot</th>';
-                output += '<th>End Slot</th>';
-
-                output += '<th>Status</th>';
-                output += '</tr>';
-                for (var i = 0; i < arr.length; i++) {
-                    var obj = arr[i];
-                    output += '<tr>';
-                    if (obj.status === "Booked") 
-                    {
-                        output += '<td><input type="checkbox" disabled/></td>';
-                    } 
-                    else 
-                    {
-                        output += '<td><input type="checkbox" name="c1" id="check" value="' + obj.start_slot + '" onchange="slot(this)" /></td>';
-                    }
-                    output += '<td>' + obj.start_slot + '</td>';
-                    output += '<td>' + obj.end_slot + '</td>';
-                    output += '<td>' + obj.status + '</td>';
-                    slot_amount = obj.slot_amount;
-
-                    output += '</tr>';
-                    count++;
-                }
-                output += '</table>';
-                document.getElementById("table").innerHTML = output;
-
-            }
-
-            var count = 0;
-            var total = 0;
-            function slot(checkbox) {
-
-                if (checkbox.checked) {
-
-                    count++;
-                } else {
-
-                    count--;
-                }
-
-                total = count * slot_amount;
-                var output = '<table class="table table-hover">';
-                output += '<tr>';
-                output += '<td> Number of slots </td>';
-                output += '<td>' + count + '</td>';
-                output += '</tr>';
-                output += '<tr>';
-                output += '<td> total value </td>';
-                output += '<td>' + total + '</td>';
-                output += '</tr>';
-
-                output += '</table>';
-                output += '<input type="button" class="btn btn-primary form-control mt-2" value="click on the button to pay the value" onclick="pay()"/>';
-                document.getElementById("slot").innerHTML = output;
-            }
-
-            var allslots = '';
-            function pay() {
-
-                var c = document.getElementsByName("c1");
-                var date = document.getElementById("datepicker").value;
-                console.log(c);
-                for (var i = 0; i < c.length; i++) {
-
-                    if (c[i].checked) {
-                        allslots += c[i].value + ",";
-                    }
-                }
-                window.location.href = "/payment?date=" + date + "&email=" + vendorId + "&total=" + total + "&slots=" + allslots + " ";
-            }
-
+                fetch(url)
+                        .then(response => response.text())
+                        .then(ans => {
+                            if (ans.includes("success")) {
+                                Swal.fire(
+                                        'Success!',
+                                        'Your booking and payment were recorded successfully.',
+                                        'success'
+                                        );
+                            } else {
+                                Swal.fire(
+                                        'Error!',
+                                        'Something went wrong: ' + ans,
+                                        'error'
+                                        );
+                            }
+                        })
+                        .catch(error => {
+                            Swal.fire(
+                                    'Error!',
+                                    'Request failed: ' + error,
+                                    'error'
+                                    );
+                        });
+                        }
         </script>
-
-
 
     </head>
 
@@ -215,7 +221,7 @@
                             <a href="#">Pages</a>
                             <i class="bi bi-chevron-down"></i>
                             <ul class="sub-menu">
-                                <li><a href="login.html">Login</a></li>
+                                <li><a href="login.html">Admin Login</a></li>
                                 <li><a href="sign-up.html">Sign Up</a></li>
                                 <li><a href="error.html">Error 404</a></li>
                                 <li><a href="faq.html">FAQs</a></li>
@@ -262,8 +268,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="breadcrumb-wrapper">
-                            <h2>Bookings</h2>
-                            <span><a href="/UserHome">Home</a><i class="bi bi-chevron-right"></i>Date Selection</span>
+                            <h2>Payment</h2>
+                            <span><a href="index.html">Home</a><i class="bi bi-chevron-right"></i>Payment</span>
                             <div class="arrow-down">
                                 <a href="#down"><i class="bi bi-chevron-down"></i></a>
                             </div>
@@ -274,46 +280,51 @@
         </section>
         <!-- End breadcrumbs section -->
 
-        <!-- Start slot selection section -->
-        <section id="down" class="login-area sec-p">
-            <div class="container">
+        <!-- Start login-area section -->
+        <section id="down" class="login-area sec-p" style="
+                 padding: 60px 0;
+                 background: linear-gradient(135deg, #e0e0e0, #ffffff);
+                 text-align: center;
+                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                 ">
+            <input type="button" value="Online" style="
+                   background-color: #ffffff;
+                   border: 1px solid #ccc;
+                   color: #333;
+                   padding: 12px 30px;
+                   font-size: 16px;
+                   border-radius: 30px;
+                   margin: 10px;
+                   cursor: pointer;
+                   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+                   transition: all 0.3s ease;
+                   " 
+                   onmouseover="this.style.backgroundColor = '#007bff'; this.style.color = '#fff';"
+                   onmouseout="this.style.backgroundColor = '#ffffff'; this.style.color = '#333';"
+                   onclick="online()"
+                   >
 
-                <div class="widget-search wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
-                    <div class="bg-light py-4 px-3 shadow-sm rounded" style="width: 100%;">
-                        <div class="d-flex justify-content-center">
-                            <input 
-                                type="date" 
-                                name="search" 
-                                id="datepicker"
-                                onchange="go()"
-                                class="form-control text-center border-success shadow-sm" 
-                                placeholder="Select Date" 
-                                style="max-width: 300px; border-radius: 10px;">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12 m-3  " id="table" >
-                         
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-
-                    </div>
-                    <div class="col-sm-4 m-3" id="slot">
-
-                    </div>
-                    <div class="col-sm-4">
-
-                    </div>
-                </div>
-
-            </div>
+            <input type="button" value="Cash" style="
+                   background-color: #ffffff;
+                   border: 1px solid #ccc;
+                   color: #333;
+                   padding: 12px 30px;
+                   font-size: 16px;
+                   border-radius: 30px;
+                   margin: 10px;
+                   cursor: pointer;
+                   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+                   transition: all 0.3s ease;
+                   "
+                   onmouseover="this.style.backgroundColor = '#28a745'; this.style.color = '#fff';"
+                   onmouseout="this.style.backgroundColor = '#ffffff'; this.style.color = '#333';"
+                   onclick="cash()"
+                   >
         </section>
-        <!-- End slot selection section -->
+
+
+
+        <!-- End login-area section -->
 
         <!-- Start footer section -->
         <footer class="footer-2">
@@ -375,8 +386,8 @@
                                             <i class="far fa-envelope"></i>
                                         </div>
                                         <div class="desc">
-                                            <a href="https://demo-egenslab.b-cdn.net/cdn-cgi/l/email-protection#8be2e5ede4cbeef3eae6fbe7eea5e8e4e6"><span class="__cf_email__" data-cfemail="6801060e07280d10090518040d460b0705">[email&#160;protected]</span></a>
-                                            <a href="https://demo-egenslab.b-cdn.net/cdn-cgi/l/email-protection#6801060e07281b1d1818071a1c460b0705"><span class="__cf_email__" data-cfemail="d8b1b6beb798abada8a8b7aaacf6bbb7b5">[email&#160;protected]</span></a>
+                                            <a href="https://demo-egenslab.b-cdn.net/cdn-cgi/l/email-protection#8be2e5ede4cbeef3eae6fbe7eea5e8e4e6"><span class="_cf_email_" data-cfemail="6801060e07280d10090518040d460b0705">[email&#160;protected]</span></a>
+                                            <a href="https://demo-egenslab.b-cdn.net/cdn-cgi/l/email-protection#6801060e07281b1d1818071a1c460b0705"><span class="_cf_email_" data-cfemail="d8b1b6beb798abada8a8b7aaacf6bbb7b5">[email&#160;protected]</span></a>
                                         </div>
                                     </div>
                                     <div class="info">

@@ -37,4 +37,9 @@ public class userControllers {
     {
         return "/User_Service_Booking_Date_Selection";
     }
+    @GetMapping("/payment")
+    public String PaymentModeSelection()
+    {
+        return "/User_Payment_Mode";
+    }
 }
