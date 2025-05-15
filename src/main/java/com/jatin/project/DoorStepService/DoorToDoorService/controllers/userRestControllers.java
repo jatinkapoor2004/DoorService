@@ -147,7 +147,7 @@ public class userRestControllers {
                 row.put("end_slot", ++Start);
                 row.put("slot_amount", slot);
 
-                ResultSet rs2 = DBLoader.executeQuery("select * from booking_detail where start_slot ='" + i + "' and booking_id in (select booking_id from booking where date=\'" + date + "\' and vendor_id =" + vendorId + " ) ");
+                ResultSet rs2 = DBLoader.executeQuery("select * from booking_detail where start_slot ='" + i + "' and booking_id in (select id  from booking where date=\'" + date + "\' and vendor_id =" + vendorId + " ) ");
                 if (rs2.next()) {
                     row.put("status", "Booked");
                 } else {

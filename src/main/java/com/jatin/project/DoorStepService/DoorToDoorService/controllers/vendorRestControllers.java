@@ -81,12 +81,14 @@ public class vendorRestControllers
         String ans = new RDBMS_TO_JSON().generateJSON("select * from cities");
         return ans;
     }
+    
     @GetMapping("/getServicesForVendor")
     public String getServicesForVendor()
     {
         String ans = new RDBMS_TO_JSON().generateJSON("select * from services");
         return ans;
     }
+    
     @GetMapping("/getVendorData")
     public String getVendorData()
     {
@@ -283,6 +285,21 @@ public class vendorRestControllers
             return e.toString();
         }
     
+    }
+    
+    @GetMapping("/FetchVendorOrderDetails")
+    public String FetchVendorOrderDetails(HttpSession session)
+    {
+        int sid = (int) session.getAttribute("id");
+        String ans = new RDBMS_TO_JSON().generateJSON("select * from booking where vendor_id="+sid);
+        return ans;
+    }
+    @GetMapping("/FetchDataForPopup")
+    public String FetchDataForPopup(@RequestParam String id)
+    {
+        int bid = Integer.parseInt(id);
+        String ans = new RDBMS_TO_JSON().generateJSON("select * from booking_detail where booking_id="+bid);
+        return ans;
     }
     //    @GetMapping("/getCityForVendorTable")
 //    public String getCityForVendorTable(@RequestParam String cityid)

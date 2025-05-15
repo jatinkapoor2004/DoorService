@@ -38,132 +38,124 @@
 
             function UpdateProfile()
             {
-                var name = document.getElementById("name").value;
-                var city = document.getElementById("cityDropDown").value;
-                var starttime = document.getElementById("starttime").value;
-                var endtime = document.getElementById("endtime").value;
-                var price = document.getElementById("price").value;
-                var contact = document.getElementById("number").value;
-                var desc = document.getElementById("desc").value;
-
-                console.log(name);
-                console.log(contact);
-                console.log(starttime);
-                console.log(endtime);
-                console.log(city);
-                console.log(price);
-                console.log(desc);
-                if(!name)
-                {
-                    alert("Name Cannot be Empty !");
-                }
-                else if(!contact)
-                {
-                    alert("Contact Cannot be Empty !");
-                }
-                
-                else if(!starttime)
-                {
-                    alert("Start Time Cannot be Empty !");
-                }
-                else if(!endtime)
-                {
-                    alert("End Time Cannot be Empty !");
-                }
-                else if(!city)
-                {
-                    alert("City Cannot be Empty !");
-                }
-                
-                else if(!price)
-                {
-                    alert("Price Cannot be Empty !");
-                }
-         
-                else if(!desc)
-                {
-                    alert("Description Cannot be Empty !");
-                }
-                else
-                {               
-                    var formdata = new FormData();
-                    formdata.append("name", name);  
-                    formdata.append("city", city);
-                    formdata.append("starttime", starttime);
-                    formdata.append("endtime", endtime);
-                    formdata.append("price", price);
-                    formdata.append("contact", contact);
-                    formdata.append("desc", desc);
-
-                    fetch("/UpdateVendorProfile",{ method:"POST",body: formdata })
-                            .then(response => response.text())
-                            .then(ans => renderAns(ans));      
-                }
+            var name = document.getElementById("name").value;
+            var city = document.getElementById("cityDropDown").value;
+            var starttime = document.getElementById("starttime").value;
+            var endtime = document.getElementById("endtime").value;
+            var price = document.getElementById("price").value;
+            var contact = document.getElementById("number").value;
+            var desc = document.getElementById("desc").value;
+//                console.log(name);
+//                console.log(contact);
+//                console.log(starttime);
+//                console.log(endtime);
+//                console.log(city);
+//                console.log(price);
+//                console.log(desc);
+            if (!name)
+            {
+            alert("Name Cannot be Empty !");
+            }
+            else if (!contact)
+            {
+            alert("Contact Cannot be Empty !");
+            }
+            else if (!starttime)
+            {
+            alert("Start Time Cannot be Empty !");
+            }
+            else if (!endtime)
+            {
+            alert("End Time Cannot be Empty !");
+            }
+            else if (!city)
+            {
+            alert("City Cannot be Empty !");
+            }
+            else if (!price)
+            {
+            alert("Price Cannot be Empty !");
+            }
+            else if (!desc)
+            {
+            alert("Description Cannot be Empty !");
+            }
+            else
+            {
+            var formdata = new FormData();
+            formdata.append("name", name);
+            formdata.append("city", city);
+            formdata.append("starttime", starttime);
+            formdata.append("endtime", endtime);
+            formdata.append("price", price);
+            formdata.append("contact", contact);
+            formdata.append("desc", desc);
+            fetch("/UpdateVendorProfile", { method:"POST", body: formdata })
+                    .then(response => response.text())
+                    .then(ans => renderAns(ans));
+            }
             }
             function renderAns(ans)
             {
-                alert(ans);
+            alert(ans);
             }
-            
+
             function getCitiesForVendor(cityId)
             {
-                //alert("already existed function called");
-                fetch("/getCitiesForVendor")
-                        .then(response => response.text())
-                        .then(ans => renderData(ans,cityId));
+            //alert("already existed function called");
+            fetch("/getCitiesForVendor")
+                    .then(response => response.text())
+                    .then(ans => renderData(ans, cityId));
             }
-            function renderData(ans,cityId)
+            function renderData(ans, cityId)
             {
-                console.log("this is from render data that is function which provide cities ---> "+ans);
-                //console.log(typeof ans);
-                ans = JSON.parse(ans);
-                let arrObj = ans["ans"];
-                //console.log(arrObj);    
-                //console.log(typeof arrObj);
-                let finalhtml = "";
-
-                finalhtml += "        <label>City</label>"
-                finalhtml += "<select class=\"loc-select\" id=\"cityDropDown\">"
-                //finalhtml+= "<option selected>"+cityname+"</option>"
-                for (let i = 0; i < arrObj.length; i++)
-                {
-                    var finalObj = arrObj[i];
-                    if(finalObj.cityid===cityId)
-                    {
-                        finalhtml+= "<option selected value="+finalObj.cityid+">"+finalObj.cityname+"</option>"
-                    }
-                    else
+            //console.log("this is from render data that is function which provide cities ---> "+ans);
+            //console.log(typeof ans);
+            ans = JSON.parse(ans);
+            let arrObj = ans["ans"];
+            //console.log(arrObj);    
+            //console.log(typeof arrObj);
+            let finalhtml = "";
+            finalhtml += "        <label>City</label>"
+                    finalhtml += "<select class=\"loc-select\" id=\"cityDropDown\">"
+                    //finalhtml+= "<option selected>"+cityname+"</option>"
+                    for (let i = 0; i < arrObj.length; i++)
+            {
+            var finalObj = arrObj[i];
+            if (finalObj.cityid === cityId)
+            {
+            finalhtml += "<option selected value=" + finalObj.cityid + ">" + finalObj.cityname + "</option>"
+            }
+            else
                     finalhtml += "<option value=" + finalObj.cityid + ">" + finalObj.cityname + "</option>";
-                }
-                finalhtml += "        </select>";
-
-
-                document.getElementById("showCityField").innerHTML = finalhtml;
-                // Initialize or re-init niceSelect
-                $('.loc-select').niceSelect('destroy'); // <- destroy existing ones
-                $('.loc-select').niceSelect(); // <- re-init all again
+            }
+            finalhtml += "        </select>";
+            document.getElementById("showCityField").innerHTML = finalhtml;
+            // Initialize or re-init niceSelect
+            $('.loc-select').niceSelect('destroy'); // <- destroy existing ones
+            $('.loc-select').niceSelect(); // <- re-init all again
             }
 
             function fetchVendorData()
             {
-                //alert("fetch vendor data called");
-                fetch("/FetchVendorData")
-                        .then((res) => res.text())
-                        .then((ans) => renderhtml(ans));
+            //alert("fetch vendor data called");
+            fetch("/FetchVendorData")
+                    .then((res) => res.text())
+                    .then((ans) => renderhtml(ans));
             }
             function renderhtml(ans)
             {
-                console.log(ans);
-                //console.log(typeof ans);
-                ans = JSON.parse(ans);
-                let arrObj = ans["ans"];
-                //console.log(arrObj);    
-                //            console.log(typeof arrObj);
-                var finalObj = arrObj[0];
-                console.log(finalObj);
-                //alert(finalObj.servicename);
-                let finalhtml = "";
-                finalhtml += `<div class="user-profile">
+            //console.log(ans);
+            //console.log(typeof ans);
+            ans = JSON.parse(ans);
+            let arrObj = ans["ans"];
+            //console.log(arrObj);    
+            //            console.log(typeof arrObj);
+            var finalObj = arrObj[0];
+            //console.log(finalObj);
+            //alert(finalObj.servicename);
+            let finalhtml = "";
+            finalhtml += `<div class="user-profile">
                                     <div class="user-info">
                                         <div class="thumb">
                                             <img src="myuploads/${finalObj.photo}" alt="">
@@ -243,39 +235,167 @@
                                         </form>
                                     </div>
                                 </div>`;
-
-                document.getElementById("v-pills-profile").innerHTML = finalhtml;
-                setTimeout(() => {
-                    getCitiesForVendor(finalObj.city); // Wait for DOM to actually render
-                }, 50);
-                // Delay initialization slightly to ensure DOM is updated
-                setTimeout(() => {
-                    $('.loc-select').niceSelect();
-                }, 50);
+            document.getElementById("v-pills-profile").innerHTML = finalhtml;
+            setTimeout(() => {
+            getCitiesForVendor(finalObj.city); // Wait for DOM to actually render
+            }, 50);
+            // Delay initialization slightly to ensure DOM is updated
+            setTimeout(() => {
+            $('.loc-select').niceSelect();
+            }, 50);
             }
+
+            function fetchVendorOrderDetails()
+            {
+            //alert("fetch vendor order details called");
+            fetch("/FetchVendorOrderDetails")
+                    .then((res) => res.text())
+                    .then((ans) => renderhtmlForOrder(ans));
+            }
+
+            function renderhtmlForOrder(ans)
+            {
+            console.log(ans);
+            //console.log(typeof ans);
+            ans = JSON.parse(ans);
+            let arrObj = ans["ans"];
+            //console.log(arrObj);    
+            //console.log(typeof arrObj);
+
+            let finalhtml = "";
+            finalhtml += ` <div class="all-order">
+                                    <div class="order-head">
+                                        <h3>All Orders</h3>
+                                       
+                                    </div>
+
+
+                                    <div class="order-table" style="overflow-x:auto;">
+                                        <table class="table table-hover" style="width:100%">
+                                            <thead>
+                                                <tr class="head">
+                                                    <th>Date</th>
+                                                    <th>User Email</th>
+                                                    <th>Order Ammount</th>
+                                                    <th>Status</th>
+                                                    <th>View Slots</th>
+                                                </tr>
+                                            </thead>`
+                    for (let i = 0; i < arrObj.length; i++)
+            {
+            let finalObj = arrObj[i];
+            finalhtml += `<tr>
+                                                <td data-label="Service title">
+                                                    <span>${finalObj.date}</span>
+                                                </td>
+                                                <td data-label="Order ID">${finalObj.user_email}</td>
+                                                <td data-label="Order Ammount">${finalObj.total_price}</td>
+                                                <td data-label="Status">${finalObj.status}</td>
+                                                <td data-label="Action">
+                                                    <div class="action">
+                                                        <div class="view">
+                                                                      
+                                                            <i class="bi bi-eye" data-bs-toggle="modal" data-bs-target="#myModal" onclick="fetchDataForPopup(${finalObj.id})"></i>
+            
+                                                                    <!-- The Modal -->
+                                                                    <div class="modal" id="myModal">
+                                                                      <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content">
+
+                                                                          <!-- Modal Header -->
+                                                                          <div class="modal-header">
+                                                                            <h4 class="modal-title text-dark">View Slots</h4>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                                          </div>
+
+                                                                          <!-- Modal body -->
+                                                                          <div class="modal-body text-dark" id="modalBody">
+                                                                            <h3>this is body of model</h3>
+                                                                          </div>
+
+                                                                          <!-- Modal footer -->
+                                                                          <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                                                                          </div>
+
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                         </div>
+                                                    </div>
+                                                </td>
+                                            </tr>`
+                                   }
+                                            
+                                   finalhtml+=`</table>
+                                    </div>
+                                    
+                                </div>`
+                    document.getElementById("v-pills-order").innerHTML = finalhtml;
+            }
+            
+            function fetchDataForPopup(id)
+            {
+                fetch("/FetchDataForPopup?id="+id)
+                        .then((res) => res.text())
+                        .then((ans) => renderhtmlForPopup(ans));
+            }
+            
+            function renderhtmlForPopup(ans)
+            {
+                 console.log(ans);
+                //console.log(typeof ans);
+                ans = JSON.parse(ans);
+                let arrObj = ans["ans"];
+                //console.log(arrObj);    
+                //console.log(typeof arrObj);
+
+                let finalhtml = "";
+                finalhtml += `<table class="table table-hover" style="width:100%">
+                                            <thead>
+                                                <tr class="head">
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                </tr>
+                                            </thead>`
+                                            for (let i = 0; i < arrObj.length; i++)
+                                            {
+                                                let finalObj = arrObj[i];
+                                                finalhtml += `<tr>
+                                                
+                                                <td >${finalObj.start_slot}:00</td>
+                                                <td>${finalObj.end_slot}:00</td>                                               
+                                            </tr>`
+                                            }
+                                            
+                finalhtml+=`</table>`
+                
+                document.getElementById("modalBody").innerHTML = finalhtml;
+            }
+            
         </script>
     </head>
 
-    <body onload="fetchVendorData()">
+    <body onload="fetchVendorData(),fetchVendorOrderDetails()">
 
         <!--Start preloader area -->
-                <div class="egns-preloader">
-                    <div class="container">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-6">
-                                <div class="circle-border">
-                                    <div class="moving-circle"></div>
-                                    <div class="moving-circle"></div>
-                                    <div class="moving-circle"></div>
-                                    <svg width="180px" height="150px" viewBox="0 0 187.3 93.7" preserveAspectRatio="xMidYMid meet">
-                                    <path stroke="#5BB543" id="outline" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" />
-                                    <path id="outline-bg" opacity="0.05" fill="none" stroke="#959595" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" />
-                                    </svg>
-                                </div>
-                            </div>
+        <div class="egns-preloader">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6">
+                        <div class="circle-border">
+                            <div class="moving-circle"></div>
+                            <div class="moving-circle"></div>
+                            <div class="moving-circle"></div>
+                            <svg width="180px" height="150px" viewBox="0 0 187.3 93.7" preserveAspectRatio="xMidYMid meet">
+                            <path stroke="#5BB543" id="outline" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" />
+                            <path id="outline-bg" opacity="0.05" fill="none" stroke="#959595" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" />
+                            </svg>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
         <!--End preloader area  -->
 
         <!-- Start header section -->
@@ -406,6 +526,7 @@
                             </button>
                         </div>
                         <div class="tab-content" id="v-pills-tabContent">
+
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                 <div class="row g-4">
                                     <div class="col-lg-6">
@@ -458,99 +579,12 @@
 
 
                             <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                this is div to show data 
+                                this is div to show data of loged in vendor
                             </div>
 
 
                             <div class="tab-pane fade" id="v-pills-order" role="tabpanel" aria-labelledby="v-pills-order-tab">
-                                <div class="all-order">
-                                    <div class="order-head">
-                                        <h3>All Order</h3>
-                                        <select>
-                                            <option selected>Show: Last 05 Order</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select>
-                                    </div>
-
-
-                                    <div class="order-table" style="overflow-x:auto;">
-                                        <table style="width:100%">
-                                            <thead>
-                                                <tr class="head">
-                                                    <th>Service Title</th>
-                                                    <th>Order ID</th>
-                                                    <th>Order Ammount</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <!-- every single data-->
-                                            <tr>
-                                                <td data-label="Service Title">
-                                                    <img src="assets/images/table-data/table-data-1.jpg" alt="">
-                                                    <span>Hair Cut Service</span>
-                                                </td>
-                                                <td data-label="Order ID">#200124001</td>
-                                                <td data-label="Order Ammount">1222.8365</td>
-                                                <td data-label="Status">Complete</td>
-                                                <td data-label="Action">
-                                                    <div class="action">
-                                                        <div class="view"><i class="bi bi-eye"></i></div>
-                                                        <div class="delete"><i class="bi bi-trash3"></i></div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- every single data-->
-                                            <tr>
-                                                <td data-label="Service title">
-                                                    <img src="assets/images/table-data/table-data-2.jpg" alt="">
-                                                    <span>Hous Shift Service</span>
-                                                </td>
-                                                <td data-label="Order ID">#2005601</td>
-                                                <td data-label="Order Ammount">1455.8768</td>
-                                                <td data-label="Status">Complete</td>
-                                                <td data-label="Action">
-                                                    <div class="action">
-                                                        <div class="view"><i class="bi bi-eye"></i></div>
-                                                        <div class="delete"><i class="bi bi-trash3"></i></div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <!-- every single data-->
-                                            <tr>
-                                                <td data-label="Service title">
-                                                    <img src="assets/images/table-data/table-data-3.jpg" alt="">
-                                                    <span>Electric Line Services</span>
-                                                </td>
-                                                <td data-label="Order ID">#200129875</td>
-                                                <td data-label="Order Ammount">1268.8955</td>
-                                                <td data-label="Status">Complete</td>
-                                                <td data-label="Action">
-                                                    <div class="action">
-                                                        <div class="view"><i class="bi bi-eye"></i></div>
-                                                        <div class="delete"><i class="bi bi-trash3"></i></div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-
-
-                                    <div class="show-entries">
-                                        <div class="entrie">
-                                            <span>Showing 10 to 20 of 1 entries</span>
-                                            <ul class="paginate">
-                                                <li><a href="#">Previous</a></li>
-                                                <li><a href="#">01</a></li>
-                                                <li class="active"><a href="#">02</a></li>
-                                                <li><a href="#">03</a></li>
-                                                <li><a href="#">Next</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                this is div to show data of order details for loged in vendor
                             </div>
 
 
@@ -597,6 +631,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="tab-pane fade" id="v-pills-logout" role="tabpanel" aria-labelledby="v-pills-settings-tab"></div>
                         </div>
                     </div>
