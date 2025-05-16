@@ -111,8 +111,9 @@ public class userRestControllers {
         String ans = new RDBMS_TO_JSON().generateJSON("select vendorphotos.* from vendorphotos JOIN vendors ON vendors.id = vendorphotos.vid where vid ="+vId);
         return ans;
     }
-@GetMapping("/view_slots")
-    String view_slots(@RequestParam String vendorId, @RequestParam String date) {
+    
+    @GetMapping("/view_slots")
+    public String view_slots(@RequestParam String vendorId, @RequestParam String date) {
 
         System.out.println(date);
         System.out.println(vendorId);

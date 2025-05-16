@@ -97,7 +97,7 @@
             }
             function renderAns(ans)
             {
-            alert(ans);
+                alert(ans);
             }
 
             function getCitiesForVendor(cityId)
@@ -255,83 +255,92 @@
 
             function renderhtmlForOrder(ans)
             {
-            console.log(ans);
-            //console.log(typeof ans);
-            ans = JSON.parse(ans);
-            let arrObj = ans["ans"];
-            //console.log(arrObj);    
-            //console.log(typeof arrObj);
+                console.log(ans);
+                //console.log(typeof ans);
+                ans = JSON.parse(ans);
+                let arrObj = ans["ans"];
+                //console.log(arrObj);    
+                //console.log(typeof arrObj);
 
-            let finalhtml = "";
-            finalhtml += ` <div class="all-order">
-                                    <div class="order-head">
-                                        <h3>All Orders</h3>
-                                       
-                                    </div>
+                let finalhtml = "";
+                finalhtml += ` <div class="all-order">
+                                        <div class="order-head">
+                                            <h3>All Orders</h3>
+                                        </div>
 
 
-                                    <div class="order-table" style="overflow-x:auto;">
-                                        <table class="table table-hover" style="width:100%">
-                                            <thead>
-                                                <tr class="head">
-                                                    <th>Date</th>
-                                                    <th>User Email</th>
-                                                    <th>Order Ammount</th>
-                                                    <th>Status</th>
-                                                    <th>View Slots</th>
-                                                </tr>
-                                            </thead>`
-                    for (let i = 0; i < arrObj.length; i++)
-            {
-            let finalObj = arrObj[i];
-            finalhtml += `<tr>
-                                                <td data-label="Service title">
-                                                    <span>${finalObj.date}</span>
-                                                </td>
-                                                <td data-label="Order ID">${finalObj.user_email}</td>
-                                                <td data-label="Order Ammount">${finalObj.total_price}</td>
-                                                <td data-label="Status">${finalObj.status}</td>
-                                                <td data-label="Action">
-                                                    <div class="action">
-                                                        <div class="view">
-                                                                      
-                                                            <i class="bi bi-eye" data-bs-toggle="modal" data-bs-target="#myModal" onclick="fetchDataForPopup(${finalObj.id})"></i>
-            
-                                                                    <!-- The Modal -->
-                                                                    <div class="modal" id="myModal">
-                                                                      <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content">
+                                        <div class="order-table" style="overflow-x:auto;">
+                                            <table class="table table-hover" style="width:100%">
+                                                <thead>
+                                                    <tr class="head">
+                                                        <th>Date</th>
+                                                        <th>User Email</th>
+                                                        <th>Order Ammount</th>
+                                                        <th>Status</th>
+                                                        <th>View Slots</th>
+                                                    </tr>
+                                                </thead>`
+                                for (let i = 0; i < arrObj.length; i++)
+                                {
+                                    let finalObj = arrObj[i];
+                                    finalhtml += `<tr>
+                                                    <td data-label="Service title">
+                                                        <span>${finalObj.date}</span>
+                                                    </td>
+                                                    <td data-label="Order ID">${finalObj.user_email}</td>
+                                                    <td data-label="Order Ammount">${finalObj.total_price}</td>`
 
-                                                                          <!-- Modal Header -->
-                                                                          <div class="modal-header">
-                                                                            <h4 class="modal-title text-dark">View Slots</h4>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    if (finalObj.status === "pending") {
+                                                        finalhtml += `<td data-label="Status">
+                                                            <button type="button" onClick="AcceptSlotRequest(${finalObj.id})" class="btn btn-sm text-white" style="background-color: #5BB543">Accept</button>
+                                                        </td>`;
+                                                    } else if (finalObj.status === "accepted") {
+                                                        finalhtml += `<td data-label="Status">
+                                                            <button type="button" onClick="PendingSlotRequest(${finalObj.id})" class="btn btn-sm btn-danger">Pending</button>
+                                                        </td>`;
+                                                    }
+
+                                                    finalhtml+=`<td data-label="Action">
+                                                        <div class="action">
+                                                            <div class="view">
+
+                                                                <i class="bi bi-eye" data-bs-toggle="modal" data-bs-target="#myModal" onclick="fetchDataForPopup(${finalObj.id})"></i>
+
+                                                                        <!-- The Modal -->
+                                                                        <div class="modal" id="myModal">
+                                                                          <div class="modal-dialog modal-dialog-centered">
+                                                                            <div class="modal-content">
+
+                                                                              <!-- Modal Header -->
+                                                                              <div class="modal-header">
+                                                                                <h4 class="modal-title text-dark">View Slots</h4>
+                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                                              </div>
+
+                                                                              <!-- Modal body -->
+                                                                              <div class="modal-body text-dark" id="modalBody">
+                                                                                <h3>this is body of model</h3>
+                                                                              </div>
+
+                                                                              <!-- Modal footer -->
+                                                                              <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                                                                              </div>
+
+                                                                            </div>
                                                                           </div>
-
-                                                                          <!-- Modal body -->
-                                                                          <div class="modal-body text-dark" id="modalBody">
-                                                                            <h3>this is body of model</h3>
-                                                                          </div>
-
-                                                                          <!-- Modal footer -->
-                                                                          <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-                                                                          </div>
-
                                                                         </div>
-                                                                      </div>
-                                                                    </div>
-                                                         </div>
-                                                    </div>
-                                                </td>
-                                            </tr>`
-                                   }
-                                            
-                                   finalhtml+=`</table>
-                                    </div>
-                                    
-                                </div>`
-                    document.getElementById("v-pills-order").innerHTML = finalhtml;
+                                                             </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>`
+                               }
+
+                                       finalhtml+=`</table>
+                                        </div>
+
+                                    </div>`
+                        document.getElementById("v-pills-order").innerHTML = finalhtml;
             }
             
             function fetchDataForPopup(id)
@@ -371,6 +380,32 @@
                 finalhtml+=`</table>`
                 
                 document.getElementById("modalBody").innerHTML = finalhtml;
+            }
+            
+            function AcceptSlotRequest(bid)
+            {
+                alert("accept button clicked " + bid);
+                fetch("/AcceptSlotRequest?Bid="+bid)
+                        .then(res => res.text())
+                        .then((ans) => renderAcceptSlotRequest(ans))
+            }
+            function renderAcceptSlotRequest(ans)
+            {
+                console.log(ans);
+                fetchVendorOrderDetails();
+            }
+
+            function PendingSlotRequest(bid)
+            {
+                //alert("Pending button clicked");
+                fetch("/PendingSlotRequest?Bid="+bid)
+                        .then(res => res.text())
+                        .then((ans) => renderPendingSlotRequest(ans))
+            }
+            function renderPendingSlotRequest(ans)
+            {
+                console.log(ans);
+                fetchVendorOrderDetails();
             }
             
         </script>

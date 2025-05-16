@@ -294,6 +294,7 @@ public class vendorRestControllers
         String ans = new RDBMS_TO_JSON().generateJSON("select * from booking where vendor_id="+sid);
         return ans;
     }
+    
     @GetMapping("/FetchDataForPopup")
     public String FetchDataForPopup(@RequestParam String id)
     {
@@ -301,6 +302,56 @@ public class vendorRestControllers
         String ans = new RDBMS_TO_JSON().generateJSON("select * from booking_detail where booking_id="+bid);
         return ans;
     }
+    
+    @GetMapping("/AcceptSlotRequest")
+    public String AcceptSlotRequest(@RequestParam String Bid)
+    {
+        int bid=Integer.parseInt(Bid);
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from booking where id="+bid );
+            if(rs.next())
+            {
+                rs.updateString("status", "accepted");
+                rs.updateRow();
+                return "Status Updated to Accepted";
+            }
+            else
+            {
+                return "user does not exist";
+            }
+            
+        } 
+        catch (Exception e)
+        {
+            System.out.println("*************Error Updating user status to accepted************8");
+            return e.toString();
+        }
+    }
+    @GetMapping("/PendingSlotRequest")
+    public String PendingSlotRequest(@RequestParam String Bid)
+    {
+        int bid=Integer.parseInt(Bid);
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from booking where id="+bid );
+            if(rs.next())
+            {
+                rs.updateString("status", "pending");
+                rs.updateRow();
+                return "Status Updated to pending";
+            }
+            else
+            {
+                return "user does not exist";
+            }
+            
+        } 
+        catch (Exception e)
+        {
+            System.out.println("*************Error Updating vendor status to Blocled ************8");
+            return e.toString();
+        }
+    }
+    
     //    @GetMapping("/getCityForVendorTable")
 //    public String getCityForVendorTable(@RequestParam String cityid)
 //    {
