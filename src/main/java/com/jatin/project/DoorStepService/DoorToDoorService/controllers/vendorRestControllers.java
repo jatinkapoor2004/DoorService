@@ -352,6 +352,29 @@ public class vendorRestControllers
         }
     }
     
+    @PostMapping("/VendorChangePasswordRC")
+    public String VendorChangePasswordRC(HttpSession session, @RequestParam String old,@RequestParam String new1)
+    {
+        int id = (int)session.getAttribute("id");
+        try 
+        {
+            ResultSet rs = DBLoader.executeQuery("select * from vendors where id="+id+" and pass='"+old+"'");
+            if(rs.next())
+            {
+                rs.updateString("pass", new1);
+                rs.updateRow();
+                return "success";
+            }
+            else
+            {
+                return "Wrong Old Password!";
+            }
+        } catch (Exception e) 
+        {
+            return e.toString();
+        }
+    }
+    
     //    @GetMapping("/getCityForVendorTable")
 //    public String getCityForVendorTable(@RequestParam String cityid)
 //    {

@@ -203,4 +203,27 @@ public class adminRestControllers
             return e.toString();
         }
     }
+    
+    @PostMapping("/AdminChangePasswordRC")
+    public String AdminChangePasswordRC(HttpSession session, @RequestParam String old,@RequestParam String new1)
+    {
+        String id = (String)session.getAttribute("email");
+        try 
+        {
+            ResultSet rs = DBLoader.executeQuery("select * from admin where email='"+id+"' and pass='"+old+"'");
+            if(rs.next())
+            {
+                rs.updateString("pass", new1);
+                rs.updateRow();
+                return "success";
+            }
+            else
+            {
+                return "Wrong Old Password!";
+            }
+        } catch (Exception e) 
+        {
+            return e.toString();
+        }
+    }
 }

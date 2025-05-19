@@ -52,4 +52,15 @@ public class vendorControllers
         else
         return "/VendorAddPhotos";
     }
+    @GetMapping("/VendorChangePassword")
+    public String VendorChangePassword(HttpSession session)
+    {
+        Integer id=(Integer)session.getAttribute("id");
+        if(id==null)
+        {
+            return "redirect:/VendorLogin";
+        }
+        else
+        return "/Vendor_Change_Password";
+    }
 }

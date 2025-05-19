@@ -76,4 +76,15 @@ public class userControllers {
         session.invalidate();
         return "redirect:/";
     }
+    @GetMapping("/UserChangePassword")
+    public String UserChangePassword(HttpSession session)
+    {
+        Integer id=(Integer)session.getAttribute("id");
+        if(id==null)
+        {
+            return "redirect:/UserLogin";
+        }
+        else
+        return "/User_Change_Password";
+    }
 }

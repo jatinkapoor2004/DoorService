@@ -241,5 +241,28 @@ public class userRestControllers {
         String ans = new RDBMS_TO_JSON().generateJSON("select * from booking where user_email='"+email+"'");
         return ans;
     }
+    
+    @PostMapping("/UserChangePasswordRC")
+    public String UserChangePasswordRC(HttpSession session, @RequestParam String old,@RequestParam String new1)
+    {
+        int id = (int)session.getAttribute("id");
+        try 
+        {
+            ResultSet rs = DBLoader.executeQuery("select * from users where id="+id+" and pass='"+old+"'");
+            if(rs.next())
+            {
+                rs.updateString("pass", new1);
+                rs.updateRow();
+                return "success";
+            }
+            else
+            {
+                return "Wrong Old Password!";
+            }
+        } catch (Exception e) 
+        {
+            return e.toString();
+        }
+    }
 
 }

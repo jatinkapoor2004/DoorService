@@ -46,4 +46,15 @@ public class adminControllers
         else
         return "/AdminManageServices";
     }
+    @GetMapping("/AdminChangePassword")
+    public String AdminChangePassword(HttpSession session)
+    {
+        String id=(String)session.getAttribute("email");
+        if(id==null)
+        {
+            return "redirect:/AdminLogin";
+        }
+        else
+        return "/Admin_Change_Password";
+    }
 }
