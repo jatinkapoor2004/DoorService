@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class adminControllers 
 {
     @GetMapping("/AdminLogin")
-    public String adminLogin()
+    public String adminLogin(HttpSession session)
     {
+        session.invalidate();
         return "/AdminLogin";
     }
     @GetMapping("/AdminHome")
     public String adminHome(HttpSession session)
     {
-        Integer id=(Integer)session.getAttribute("id");
+        String id=(String)session.getAttribute("email");
         if(id==null)
         {
             return "redirect:/AdminLogin";
@@ -26,7 +27,7 @@ public class adminControllers
     @GetMapping("/AdminManageCities")
     public String adminManageCities(HttpSession session)
     {
-        Integer id=(Integer)session.getAttribute("id");
+        String id=(String)session.getAttribute("email");
         if(id==null)
         {
             return "redirect:/AdminLogin";
@@ -37,7 +38,7 @@ public class adminControllers
     @GetMapping("/AdminManageServices")
     public String AdminManageServices(HttpSession session)
     {
-        Integer id=(Integer)session.getAttribute("id");
+        String id=(String)session.getAttribute("email");
         if(id==null)
         {
             return "redirect:/AdminLogin";

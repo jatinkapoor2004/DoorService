@@ -1,0 +1,157 @@
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div th:fragment="header">
+            <div th:if="${session.email}">
+                <header class="header-2 sticky_top">
+                    <div class="header-logo">
+                        <a href="/AdminHome"><img src="assets/images/home2/logo.svg" alt=""></a>
+                    </div>
+                    <div class="main-menu">
+                        <nav class="main-nav">
+                            <div class="mobile-menu-logo">
+                                <a href="/AdminHome"><img src="assets/images/home2/logo.svg" alt=""></a>
+                                <div class="remove">
+                                    <i class="bi bi-plus-lg"></i>
+                                </div>
+                            </div>
+                            <ul>
+                               <li class="has-child active">
+                                    <a href="/AdminHome">Home</a>
+                                </li>
+                                <li class="has-child">
+                                    <a href="#">Manage</a>
+                                    <i class="bi bi-chevron-down"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="/AdminManageCities">Manage Cities</a></li>
+                                        <li><a href="/AdminManageServices">Manage Services</a></li>
+                                        <li><a href="/AdminManageVendors">Manage Vendors</a></li>
+                                    </ul>
+                                </li>
+                                
+
+                                <li class="has-child">
+                                    <a href="about.html">About Us</a>
+
+                                </li>
+
+                                <li class="has-child">
+                                    <a href="#">FAQ</a>
+                                </li>
+                                <li><a href="contact.html">Contact Us</a></li>
+
+                               
+                            </ul>
+                            <div class="my-account">
+                                <a href="/logout">Logout</a>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="header-right">
+                        <div class="phone">
+                            <div class="icon">
+                                <img src="assets/images/icons/phone-white.svg" alt="">
+                            </div>
+                            <div class="phn-info">
+                                <span>Call Us Now</span>
+                                <a href="tel:6280178623">+91 628 0178 623</a>
+                            </div>
+                        </div>
+
+                        <div class="account-btn">
+                            <a href="/logout">Logout</a>
+                        </div>
+                        <div class="mobile-menu">
+                            <a href="javascript:void(0)" class="cross-btn">
+                                <span class="cross-top"></span>
+                                <span class="cross-middle"></span>
+                                <span class="cross-bottom"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </header>
+            </div>
+            
+            <div th:unless="${session.email}">
+                 <header class="header-2 sticky_top">
+                    <div class="header-logo">
+                        <a href="/"><img src="assets/images/home2/logo.svg" alt=""></a>
+                    </div>
+                    <div class="main-menu">
+                        <nav class="main-nav">
+                            <div class="mobile-menu-logo">
+                                <a href="/"><img src="assets/images/home2/logo.svg" alt=""></a>
+                                <div class="remove">
+                                    <i class="bi bi-plus-lg"></i>
+                                </div>
+                            </div>
+                            <ul>
+                                <li class="has-child active">
+                                    <a href="/">Home</a>
+
+                                </li>
+                                <li><a href="about.html">About Us</a></li>
+                                <li class="has-child">
+                                    <a href="#">User</a>
+                                    <i class="bi bi-chevron-down"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="/UserLogin">Login</a></li>
+                                        <li><a href="/UserSignUp">SignUp</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-child">
+                                    <a href="#">Vendor</a>
+                                    <i class="bi bi-chevron-down"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="/VendorLogin">Login</a></li>
+                                        <li><a href="/VendorSignUp">SignUp</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="has-child">
+                                    <a href="/AdminLogin">Admin</a>
+                                    <i class="bi bi-chevron-down"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="/AdminLogin">Login</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                            </ul>
+                            <div class="my-account">
+                                <a href="/VendorLogin">Login</a>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="header-right">
+                        <div class="phone">
+                            <div class="icon">
+                                <img src="assets/images/icons/phone-white.svg" alt="">
+                            </div>
+                            <div class="phn-info">
+                                <span>Call Us Now</span>
+                                <a href="tel:6280178623">+91 628 0178 623</a>
+                            </div>
+                        </div>
+
+                        <div class="account-btn">
+                            <a href="/VendorLogin">Login</a>
+                        </div>
+                        <div class="mobile-menu">
+                            <a href="javascript:void(0)" class="cross-btn">
+                                <span class="cross-top"></span>
+                                <span class="cross-middle"></span>
+                                <span class="cross-bottom"></span>
+                            </a>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+    </body>
+</html>

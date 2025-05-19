@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class userControllers {
 
     @GetMapping("/UserSignUp")
-    public String UserSignUp() {
+    public String UserSignUp(HttpSession session) {
+        session.invalidate();
         return "/UserSignUp";
     }
 
     @GetMapping("/UserLogin")
-    public String UserLogin() {
+    public String UserLogin(HttpSession session) {
+        session.invalidate();
         return "/UserLogin";
     }
 
@@ -56,5 +58,22 @@ public class userControllers {
         }
         else
         return "/User_Payment_Mode";
+    }
+    @GetMapping("/BookingHistory")
+    public String BookingHistory(HttpSession session)
+    {
+        Integer id=(Integer)session.getAttribute("id");
+        if(id==null)
+        {
+            return "redirect:/UserLogin";
+        }
+        else
+        return "/User_Show_Booking_History";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session)
+    {
+        session.invalidate();
+        return "redirect:/";
     }
 }

@@ -8,24 +8,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class vendorControllers 
 {
     @GetMapping("/VendorSignUp")
-    public String VendorSignUp()
+    public String VendorSignUp(HttpSession session)
     {
+        session.invalidate();
         return "/VendorSignUp";
     }
     @GetMapping("/AdminManageVendors")
     public String AdminManageVendors(HttpSession session)
     {
-        Integer id=(Integer)session.getAttribute("id");
+        String id=(String)session.getAttribute("email");;
         if(id==null)
         {
-            return "redirect:/VendorLogin";
+            return "redirect:/AdminLogin";
         }
         else
         return "/AdminManageVendors";
     }
     @GetMapping("/VendorLogin")
-    public String VendorLogin()
+    public String VendorLogin(HttpSession session)
     {
+        session.invalidate();
         return "/VendorLogin";
     }
     @GetMapping("/VendorHome")

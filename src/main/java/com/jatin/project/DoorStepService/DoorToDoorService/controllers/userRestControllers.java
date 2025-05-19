@@ -18,7 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class userRestControllers {
 
     @PostMapping("/UserSignUp")
-    public String UserSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String pass, @RequestParam String contact, @RequestParam String address, @RequestParam MultipartFile photo) {
+    public String UserSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String pass, @RequestParam String contact, @RequestParam String address, @RequestParam MultipartFile photo) 
+    {
         String projectPath = System.getProperty("user.dir");
         String internal_path = "/src/main/resources/static";
         String folderName = "/myuploads";
@@ -62,14 +63,19 @@ public class userRestControllers {
             //ResultSet rs = DBLoader.executeQuery("select * from admin where email='"+email+"' and pass='"+pass);
             ResultSet rs = DBLoader.executeQuery("select * from users where email='" + email + "' and pass='" + pass + "'");
 
-            if (rs.next()) {
+            if (rs.next())
+            {
                 session.setAttribute("id", rs.getInt("id"));
+                session.setAttribute("email", rs.getString("email"));
                 System.out.println(session.getAttribute("id"));
                 return "success";
-            } else {
+            } 
+            else {
                 return "fail";
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             return e.toString();
         }
     }
@@ -227,6 +233,13 @@ public class userRestControllers {
         } catch (Exception ex) {
             return ex.toString();
         }
+    }
+    @GetMapping("/UserBookingHistory")
+    public String userBookingHistory(HttpSession session)
+    {
+        String email = (String)session.getAttribute("email");
+        String ans = new RDBMS_TO_JSON().generateJSON("select * from booking where user_email='"+email+"'");
+        return ans;
     }
 
 }

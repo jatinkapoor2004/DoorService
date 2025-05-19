@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SERVE - On Demand Services HTML Template</title>
+        <link rel="icon" href="assets/images/faviconS.png" type="image/gif" sizes="20x20">
+
+        <!-- Bootstrap CSS -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap icons CSS -->
+        <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
+        <!-- Fontawesome all CSS -->
+        <link href="assets/css/all.min.css" rel="stylesheet">
+        <!-- Fontawesome CSS -->
+        <link href="assets/css/fontawesome.min.css" rel="stylesheet">
+        <!-- Swiper slider CSS -->
+        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+        <!-- slick-slide -->
+        <link rel="stylesheet" href="assets/css/slick-theme.css">
+        <link rel="stylesheet" href="assets/css/slick.css">
+        <!-- Nice select CSS -->
+        <link rel="stylesheet" href="assets/css/nice-select.css">
+        <!-- Magnific-popup CSS -->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <!-- Animate CSS -->
+        <link rel="stylesheet" href="assets/css/animate.min.css">
+        <!--  Style CSS  -->
+        <link rel="stylesheet" href="assets/css/style.css">
+    </head>
+    <body>
+        <div th:fragment="header2">
+            <div th:if="${session.id}">
+                <header class="header-2 sticky_top">
+                    <div class="header-logo">
+                        <a href="/"><img src="assets/images/home2/logo.svg" alt=""></a>
+                    </div>
+                    <div class="main-menu">
+                        <nav class="main-nav">
+                            <div class="mobile-menu-logo">
+                                <a href="/"><img src="assets/images/home2/logo.svg" alt=""></a>
+                                <div class="remove">
+                                    <i class="bi bi-plus-lg"></i>
+                                </div>
+                            </div>
+                            <ul>
+                                <li class="has-child active">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li><a href="/BookingHistory">Order History</a></li>
+
+                                <li class="has-child">
+                                    <a href="about.html">About Us</a>
+
+                                </li>
+
+                                <li class="has-child">
+                                    <a href="#">FAQ</a>
+                                </li>
+                                <li><a href="contact.html">Contact Us</a></li>
+
+                                <li class="has-child">
+                                    <a href="#">Become a Partner</a>
+                                    <i class="bi bi-chevron-down"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="/VendorLogin">Vendor Login</a></li>
+                                        <li><a href="/VendorSignUp">Vendor SignUp</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="my-account">
+                                <a href="/logout">Logout</a>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="header-right">
+                        <div class="phone">
+                            <div class="icon">
+                                <img src="assets/images/icons/phone-white.svg" alt="">
+                            </div>
+                            <div class="phn-info">
+                                <span>Call Us Now</span>
+                                <a href="tel:6280178623">+91 628 0178 623</a>
+                            </div>
+                        </div>
+
+                        <div class="account-btn">
+                            <a href="/logout">Logout</a>
+                        </div>
+                        <div class="mobile-menu">
+                            <a href="javascript:void(0)" class="cross-btn">
+                                <span class="cross-top"></span>
+                                <span class="cross-middle"></span>
+                                <span class="cross-bottom"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </header>    
+            </div>
+
+            <div th:unless="${session.id}">
+                <header class="header-2 sticky_top">
+                    <div class="header-logo">
+                        <a href="/"><img src="assets/images/home2/logo.svg" alt=""></a>
+                    </div>
+                    <div class="main-menu">
+                        <nav class="main-nav">
+                            <div class="mobile-menu-logo">
+                                <a href="/"><img src="assets/images/home2/logo.svg" alt=""></a>
+                                <div class="remove">
+                                    <i class="bi bi-plus-lg"></i>
+                                </div>
+                            </div>
+                            <ul>
+                                <li class="has-child active">
+                                    <a href="/">Home</a>
+
+                                </li>
+                                <li><a href="about.html">About Us</a></li>
+                                <li class="has-child">
+                                    <a href="#">User</a>
+                                    <i class="bi bi-chevron-down"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="/UserLogin">Login</a></li>
+                                        <li><a href="/UserSignUp">SignUp</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-child">
+                                    <a href="#">Vendor</a>
+                                    <i class="bi bi-chevron-down"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="/VendorLogin">Login</a></li>
+                                        <li><a href="/VendorSignUp">SignUp</a></li>
+
+                                    </ul>
+                                </li>
+                                <li class="has-child">
+                                    <a href="/AdminLogin">Admin</a>
+                                    <i class="bi bi-chevron-down"></i>
+                                    <ul class="sub-menu">
+                                        <li><a href="/AdminLogin">Login</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                            </ul>
+                            <div class="my-account">
+                                <a href="/UserLogin">Login</a>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="header-right">
+                        <div class="phone">
+                            <div class="icon">
+                                <img src="assets/images/icons/phone-white.svg" alt="">
+                            </div>
+                            <div class="phn-info">
+                                <span>Call Us Now</span>
+                                <a href="tel:6280178623">+91 628 0178 623</a>
+                            </div>
+                        </div>
+
+                        <div class="account-btn">
+                            <a href="/UserLogin">Login</a>
+                        </div>
+                        <div class="mobile-menu">
+                            <a href="javascript:void(0)" class="cross-btn">
+                                <span class="cross-top"></span>
+                                <span class="cross-middle"></span>
+                                <span class="cross-bottom"></span>
+                            </a>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -2,6 +2,7 @@ package com.jatin.project.DoorStepService.DoorToDoorService.controllers;
 
 import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.DBLoader;
 import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.RDBMS_TO_JSON;
+import jakarta.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class adminRestControllers 
 {
     @PostMapping("/checkAdminCreds")
-    public String checkAdminCreds(@RequestParam String email, @RequestParam String pass )
+    public String checkAdminCreds(HttpSession session,@RequestParam String email, @RequestParam String pass )
     {
         try 
         {
@@ -23,6 +24,8 @@ public class adminRestControllers
 
             if(rs.next())
             {
+                session.setAttribute("email", rs.getString("email"));
+                System.out.println(session.getAttribute("email"));
                 return "success";
             }
             else
