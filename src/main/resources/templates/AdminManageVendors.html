@@ -34,7 +34,7 @@
         <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" type="text/css"/>
         <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" type="text/css">
 
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- Title -->
         <script>
 
@@ -47,7 +47,22 @@
             }
             function renderAcceptVendor(ans)
             {
-                console.log(ans);
+                if(ans==="Status Updated to Accepted")
+                {
+                    Swal.fire({
+                            icon: 'success',
+                            title: 'Status Updated',
+                            text: ans
+                        });
+                }
+                else
+                {
+                    Swal.fire({
+                        icon:'error',
+                        title:'Cann\'t Update Status',
+                        text:ans
+                    });
+                }
                 getVendorData();
             }
 
@@ -60,6 +75,22 @@
             }
             function renderBlockVendor(ans)
             {
+                if(ans==="Status Updated to Blocked")
+                    {
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Status Updated',
+                                text: ans
+                            });
+                    }
+                    else
+                    {
+                        Swal.fire({
+                            icon:'error',
+                            title:'Cann\'t Update Status',
+                            text:ans
+                        });
+                    }
                 console.log(ans);
                 getVendorData();
             }

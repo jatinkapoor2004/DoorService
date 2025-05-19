@@ -32,17 +32,22 @@
     <!--  Style CSS  -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Title -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function vendorLogin()
         {
-            alert("vendor login clicked ");
+            //alert("vendor login clicked ");
             
             let email = document.getElementById("email").value;
             let pass = document.getElementById("password").value;
             
             if(email==="" || pass ==="")
             {
-                alert("email and pass are required");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Please fill all the fields.'
+                    });
             }
             else
             {
@@ -60,13 +65,24 @@
         {
             if(ans==="success")
             {
-                //this line send the request to controller not to the file itself
-                window.location.href ="/VendorHome";
-  
+                Swal.fire({
+                    icon:'success',
+                    title:'Login Success',
+                    text:'Login has been Succesfully Done'
+                    }).then((result) => {
+                        if(result .isConfirmed){
+                             window.location.href="/VendorHome";
+                        }
+                        });
+                   
             }
             else
             {
-                alert("Login Creds Doesn't Match");
+                Swal.fire({
+                    icon:'error',
+                    title:'Login Failed',
+                    text:'Please Enter The Credentials Properly'
+                });
             }
         }
     </script>

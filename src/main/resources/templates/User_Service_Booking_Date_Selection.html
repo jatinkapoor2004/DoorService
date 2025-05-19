@@ -32,22 +32,26 @@
         <!--  Style CSS  -->
         <link rel="stylesheet" href="assets/css/style.css">
         <!-- Title -->
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
         <script>
 
                 const params = new URLSearchParams(window.location.search);
                 var vendorId = params.get('vid');
-            function go() {
-
-
+            function go() 
+            {
                 var s = document.getElementById("datepicker").value;
                 console.log(s);
 
                 if (s === '')
                 {
-                    alert("Choose Dates first");
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Date',
+                        text: 'Choose Date First!'
+                    });
+                    //alert("Choose Dates first");
                 } 
                 else 
                 {
@@ -138,7 +142,23 @@
                         allslots += c[i].value + ",";
                     }
                 }
-                window.location.href = "/payment?date=" + date + "&email=" + vendorId + "&total=" + total + "&slots=" + allslots + " ";
+                if(!date)
+                {
+                     Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Date',
+                        text: 'Choose Date First!'
+                        }).then((result) => {
+                            if(result .isConfirmed){
+                                 window.location.href="/ServiceBookingDateSelection?vid="+vendorId;
+                            }
+                            });
+                }
+                else
+                {
+                    window.location.href = "/payment?date=" + date + "&email=" + vendorId + "&total=" + total + "&slots=" + allslots + " ";
+                }
+                
             }
 
         </script>

@@ -32,7 +32,7 @@
         <!--  Style CSS  -->
         <link rel="stylesheet" href="assets/css/style.css">
         <!-- Title -->
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function getAlreadyExistedPhotos()
             {
@@ -88,7 +88,7 @@
             
             function addPhoto()
             {
-                alert("add Photo function called");
+                //alert("add Photo function called");
                 let servicephoto = document.getElementById("sphoto").files[0];
                 let servicedesc = document.getElementById("sdesc").value;
 
@@ -97,11 +97,19 @@
                 console.log(servicedesc);
                 if (!servicephoto)
                 {
-                    alert("Service Photo cannot be Empty !");
+                     Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Photo Can\'t be Empty.'
+                    });
                 }
                 else if (!servicedesc)
                 {
-                    alert("Service Description Cannot be Empty !");
+                     Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Description Can\'t be Empty.'
+                    });
                 } 
                 else
                 {
@@ -117,20 +125,39 @@
 
             function renderHTML(ans)
             {
-                alert(ans);
+                if(ans==="Photo Added SuccessFully")
+                {
+                    Swal.fire({
+                            icon: 'success',
+                            title: 'Successfully Added',
+                            text: ans
+                        });
+                }
+                else
+                {
+                    Swal.fire({
+                        icon:'error',
+                        title:'Photo Can\'t be Added',
+                        text:ans
+                    });
+                }
                 getAlreadyExistedPhotos();
             }
 
             function deleteCity(id)
             {
-                alert("delete Photo called");
+                //alert("delete Photo called");
                 fetch("/deletePhoto?id=" + id)
                         .then(res => res.text())
                         .then(ans => showres(ans));
             }
             function showres(ans)
             {
-                alert(ans);
+                Swal.fire({
+                    icon:'success',
+                    title:'Photo Deleted',
+                    text:"Photo Deleted Successfully"
+                });
                 getAlreadyExistedPhotos();
             }
         </script>

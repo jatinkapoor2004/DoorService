@@ -32,7 +32,7 @@
     <!--  Style CSS  -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Title -->
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         
         function getAlreadyExistedServices()
@@ -89,7 +89,7 @@
         
         function addService()
         {
-            alert("add Service function called");
+            //alert("add Service function called");
             let servicename = document.getElementById("sname").value;
             let servicephoto = document.getElementById("sphoto").files[0];
             let servicedesc = document.getElementById("sdesc").value;
@@ -99,15 +99,27 @@
             console.log(servicedesc);
             if(!servicename)
             {
-                alert("Service Name Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Service Name is Required.'
+                    });
             }
             else if(!servicedesc)
             {
-                alert("Service Description cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Service Description is Required.'
+                    });
             }
             else if(!servicephoto)
             {
-                alert("Service Photo Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Service Photo is Required.'
+                    });
             }
             else
             {               
@@ -124,20 +136,48 @@
         
         function renderHTML(ans)
         {
-            alert(ans);
+            if(ans==="Service Already Exists")
+            {
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Action Required',
+                        text: ans
+                    });
+            }
+            else if(ans==="Service Added SuccessFully")
+            {
+                Swal.fire({
+                        icon: 'success',
+                        title: 'Successfully Added',
+                        text: ans
+                    });
+            }
+            else
+            {
+                Swal.fire({
+                    icon:'error',
+                    title:'Add Service Failed',
+                    text:ans
+                });
+            }
+            //alert(ans);
             getAlreadyExistedServices();
         }
         
         function deleteService(id)
         {
-            alert("delete Service called" +id);
+            //alert("delete Service called" +id);
             fetch("/deleteService?id="+id)
                     .then(res=>res.text())
                     .then(ans=>showres(ans))
         }
         function showres(ans)
         {
-            alert(ans);
+            Swal.fire({
+                    icon:'success',
+                    title:'Service Deleted',
+                    text:ans
+                });
             getAlreadyExistedServices();
         }
     </script>

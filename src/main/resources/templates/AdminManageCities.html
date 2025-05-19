@@ -32,7 +32,7 @@
     <!--  Style CSS  -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Title -->
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function getAlreadyExistedCities()
         {
@@ -87,7 +87,7 @@
         }
         function addCity()
         {
-            alert("add city function called");
+            //alert("add city function called");
             let cityname = document.getElementById("cname").value;
             let cityphoto = document.getElementById("cphoto").files[0];
             let citydesc = document.getElementById("cdesc").value;
@@ -97,15 +97,27 @@
             console.log(citydesc);
             if(!cityname)
             {
-                alert("City Name Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'City Name is Required.'
+                    });
             }
             else if(!citydesc)
             {
-                alert("City Description cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'City Description is Required.'
+                    });
             }
             else if(!cityphoto)
             {
-                alert("City Photo Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'City Photo is Required.'
+                    });
             }
             else
             {               
@@ -122,22 +134,49 @@
         
         function renderHTML(ans)
         {
-            alert(ans);
+            if(ans==="City Already Exists")
+            {
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Action Required',
+                        text: ans
+                    });
+            }
+            else if(ans==="City Added SuccessFully")
+            {
+                Swal.fire({
+                        icon: 'success',
+                        title: 'Successfully Added',
+                        text: ans
+                    });
+            }
+            else
+            {
+                Swal.fire({
+                    icon:'error',
+                    title:'Add City Failed',
+                    text:ans
+                });
+            }
+            
             getAlreadyExistedCities();
         }
-                
-        
-        
+
         function deleteCity(id)
         {
-            alert("delete city called");
+            //alert("delete city called");
             fetch("/deleteCity?id="+id)
                     .then(res=>res.text())
                     .then(ans=>showres(ans));
         }
         function showres(ans)
         {
-            alert(ans);
+            Swal.fire({
+                    icon:'success',
+                    title:'City Deleted',
+                    text:"City Deleted Successfully"
+                });
+            //alert(ans);
             getAlreadyExistedCities();
         }
     </script>
