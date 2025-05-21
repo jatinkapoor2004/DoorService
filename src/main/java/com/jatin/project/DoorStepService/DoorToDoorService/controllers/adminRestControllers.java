@@ -5,6 +5,7 @@ import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.RDBMS_TO_JS
 import jakarta.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class adminRestControllers 
 {
+    @Autowired
+        public EmailSenderService email;
+        
+    
     @PostMapping("/checkAdminCreds")
     public String checkAdminCreds(HttpSession session,@RequestParam String email, @RequestParam String pass )
     {
@@ -226,4 +231,76 @@ public class adminRestControllers
             return e.toString();
         }
     }
+    
+    
+    @GetMapping("/forgot")
+    public String forgot(@RequestParam String email, @RequestParam String otp) {
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from admin where email='" + email + "'");
+            if (rs.next()) {
+                String body = "Your otp for login page is =" + otp;
+                String subject = "Login Authntication";
+                this.email.sendSimpleEmail(email, body, subject);
+                return "success";
+            } else {
+                return "fail";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ex.toString();
+        }
+    }
+
+    @GetMapping("/otpverify")
+    public String otpverify(@RequestParam String email) {
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from admin where email='" + email + "'");
+            if (rs.next()) {
+                rs.moveToCurrentRow();
+                String pass = rs.getString("pass");
+                String subject = "Your Account Password - JC Pawfect";
+                String body = "Dear User,\n\n"
+                        + "As per your request, here is your account password:\n\n"
+                        + "Password: " + pass + "\n\n"
+                        + "Please do not share this password with anyone.\n"
+                        + "We recommend changing your password after login for better security.\n\n"
+                        + "Regards,\n"
+                        + "Team Door Step Services";
+                this.email.sendSimpleEmail(email, body, subject);
+                return "success";
+            } else {
+                return "fail";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ex.toString();
+        }
+    }
+    
+    
+//    @PostMapping("/ForgotAdminPassword")
+//    public String ForgotAdminPassword(@RequestParam String email,@RequestParam String otp)
+//    {
+//        System.out.println(email+" "+ otp);
+//        try 
+//        {
+//            ResultSet rs = DBLoader.executeQuery("select * from admin where email='"+email+"'");
+//            if(rs.next())
+//            {
+//                //System.out.println("inside rs");
+//                this.email.sendSimpleEmail("jatinkapoor3066@gmail.com", "Your OTP for password forgot is "+otp, "OTP Verification for Forgot Password");               
+//                return "success";
+//            }
+//            else
+//            {
+//                return "No Such Email Found!";
+//            }
+//        } catch (Exception e) 
+//        {
+//            return e.toString();
+//        }
+//        //return email+" "+ otp;
+//    }
+    
+    
 }

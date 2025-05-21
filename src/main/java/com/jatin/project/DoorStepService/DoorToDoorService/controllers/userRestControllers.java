@@ -264,5 +264,54 @@ public class userRestControllers {
             return e.toString();
         }
     }
+    
+    
+    
+        @GetMapping("/userAddReview")
+    public String userAddReview(@RequestParam String vendor_email, @RequestParam int rating, @RequestParam String comment, HttpSession session) {
+        String user_email = (String) session.getAttribute("email");
+        System.out.println(user_email);
+//        System.out.println(rating);
+        String ans = "";
+        try {
+            ResultSet rs = DBLoader.executeQuery("Select * from review_table");
 
+            rs.moveToInsertRow();
+            rs.updateString("vendor_email", vendor_email);
+            rs.updateString("user_email", user_email);
+            rs.updateString("comment", comment);
+            rs.updateInt("rating", rating);
+            rs.insertRow();
+            ans = "success";
+
+        } catch (Exception e) {
+            ans = e.toString();
+        }
+
+        return ans;
+    }
+
+    
+    
+    @GetMapping("/userShowRatings")
+    public String userShowRatings(@RequestParam String vendor_email) {
+
+        // Assuming RDBMS_TO_JSON is available as a service or component
+        String ans = new RDBMS_TO_JSON().generateJSON("select * from review_table where vendor_email='" + vendor_email + "' ");
+        System.out.println(ans);
+        return ans;
+
+    } 
+    
+    
+        @GetMapping("/userShowAverageRatings")
+    public String userShowAverageRatings(@RequestParam String vendor_email) {
+
+        // Assuming RDBMS_TO_JSON is available as a service or component
+        String ans = new RDBMS_TO_JSON().generateJSON("select avg(rating) as r1 from review_table where vendor_email='" + vendor_email + "' ");
+        System.out.println(ans);
+        return ans;
+
+    }
+    
 }

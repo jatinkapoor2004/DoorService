@@ -2,198 +2,349 @@
 <html lang="en">
 
 
-<!-- Mirrored from demo-egenslab.b-cdn.net/html/serve/preview/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Apr 2025 10:21:50 GMT -->
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SERVE - On Demand Services HTML Template</title>
-    <link rel="icon" href="assets/images/faviconS.png" type="image/gif" sizes="20x20">
+    <!-- Mirrored from demo-egenslab.b-cdn.net/html/serve/preview/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Apr 2025 10:21:50 GMT -->
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SERVE - On Demand Services HTML Template</title>
+        <link rel="icon" href="assets/images/faviconS.png" type="image/gif" sizes="20x20">
 
-    <!-- Bootstrap CSS -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap icons CSS -->
-    <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
-    <!-- Fontawesome all CSS -->
-    <link href="assets/css/all.min.css" rel="stylesheet">
-    <!-- Fontawesome CSS -->
-    <link href="assets/css/fontawesome.min.css" rel="stylesheet">
-    <!-- Swiper slider CSS -->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-    <!-- slick-slide -->
-    <link rel="stylesheet" href="assets/css/slick-theme.css">
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <!-- Nice select CSS -->
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <!-- Magnific-popup CSS -->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <!--  Style CSS  -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Title -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function checkAdminCreds()
-        {
-            //alert("go ");
-            
-            let email = document.getElementById("email").value;
-            let pass = document.getElementById("password").value;
-            
-            if(email==="" || pass ==="")
+        <!-- Bootstrap CSS -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap icons CSS -->
+        <link href="assets/css/bootstrap-icons.css" rel="stylesheet">
+        <!-- Fontawesome all CSS -->
+        <link href="assets/css/all.min.css" rel="stylesheet">
+        <!-- Fontawesome CSS -->
+        <link href="assets/css/fontawesome.min.css" rel="stylesheet">
+        <!-- Swiper slider CSS -->
+        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+        <!-- slick-slide -->
+        <link rel="stylesheet" href="assets/css/slick-theme.css">
+        <link rel="stylesheet" href="assets/css/slick.css">
+        <!-- Nice select CSS -->
+        <link rel="stylesheet" href="assets/css/nice-select.css">
+        <!-- Magnific-popup CSS -->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <!-- Animate CSS -->
+        <link rel="stylesheet" href="assets/css/animate.min.css">
+        <!--  Style CSS  -->
+        <link rel="stylesheet" href="assets/css/style.css">
+        <!-- Title -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function checkAdminCreds()
             {
-                Swal.fire({
+                //alert("go ");
+
+                let email = document.getElementById("email").value;
+                let pass = document.getElementById("password").value;
+
+                if (email === "" || pass === "")
+                {
+                    Swal.fire({
                         icon: 'warning',
                         title: 'Missing Fields',
                         text: 'Please fill all the fields.'
                     });
-            }
-            else
-            {
-                
-                var formdata = new FormData();
-                formdata.append("email", email);  
-                formdata.append("pass", pass);
+                } else
+                {
 
-                fetch("/checkAdminCreds",{ method:"POST",body: formdata })
-                        .then(response => response.text())
-                        .then(ans => renderHTML(ans));      
+                    var formdata = new FormData();
+                    formdata.append("email", email);
+                    formdata.append("pass", pass);
+
+                    fetch("/checkAdminCreds", {method: "POST", body: formdata})
+                            .then(response => response.text())
+                            .then(ans => renderHTML(ans));
+                }
             }
-        }
-        function renderHTML(ans)
-        {
-            if(ans==="success")
+            function renderHTML(ans)
             {
-                Swal.fire({
-                    icon:'success',
-                    title:'Login Success',
-                    text:'Login has been Succesfully Done'
+                if (ans === "success")
+                {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Success',
+                        text: 'Login has been Succesfully Done'
                     }).then((result) => {
-                        if(result .isConfirmed){
-                             window.location.href="/AdminHome";
+                        if (result.isConfirmed) {
+                            window.location.href = "/AdminHome";
                         }
-                        });
-                   
+                    });
+
+                } else
+                {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Failed',
+                        text: 'Please Enter The Credentials Properly'
+                    });
+                }
             }
-            else
+            var otp;
+
+            function forgot()
             {
-                Swal.fire({
-                    icon:'error',
-                    title:'Login Failed',
-                    text:'Please Enter The Credentials Properly'
-                });
+                var email = document.getElementById("email").value;
+                otp = Math.floor(1000 + Math.random() * 9000);
+
+                if (!email)
+                {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Enter Email',
+                        text: 'Please Enter Email First'
+                    });
+                } else {
+                    var url = "/forgot?email=" + email + "&otp=" + otp;
+                    fetch(url)
+                            .then(response => response.text())
+                            .then(ans => renderAsHtml5(ans));
+                }
             }
-        }
-    </script>
-</head>
 
-<body>
+            function renderAsHtml5(ans) {
+                if (ans === "success") {
+                    Swal.fire({
+                        title: 'Enter OTP',
+                        html:
+                                '<input type="text" id="otpInput" class="swal2-input" placeholder="Enter OTP">' +
+                                '<button onclick="verifyOtpFromModal()" class="swal2-confirm swal2-styled" style="margin-top: 10px;">Verify OTP</button>',
+                        showConfirmButton: false
+                    });
 
-    <!--Start preloader area -->
-    <div class="egns-preloader">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-6">
-                    <div class="circle-border">
-                        <div class="moving-circle"></div>
-                        <div class="moving-circle"></div>
-                        <div class="moving-circle"></div>
-                        <svg width="180px" height="150px" viewBox="0 0 187.3 93.7" preserveAspectRatio="xMidYMid meet">
-                            <path stroke="#5BB543" id="outline" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" />
-                            <path id="outline-bg" opacity="0.05" fill="none" stroke="#959595" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" />
-                        </svg>
+                } else if (ans === "fail") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Invalid Email',
+                        text: 'Email not registered for User'
+                    });
+                } else {
+                    alert(ans);
+                }
+            }
+
+            function verifyOtpFromModal() {
+                        var inp = document.getElementById("otpInput").value;
+                        if (otp == inp)
+                        {
+                            var email = document.getElementById("email").value;
+                            var url = "/otpverify?email=" + email;
+                            fetch(url)
+                                    .then(response => response.text())
+                                    .then(ans => {
+                                        if (ans === "success")
+                                        {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Otp Success',
+                                                text: 'Please Check Your Email for the Password'
+                                            });
+
+                                        } else if (ans === "fail")
+                                        {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Otp Invalid',
+                                                text: 'Please Check Your Email for the OTP'
+                                            });
+                                        }
+                                    });
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Invalid Otp',
+                                text: 'Please Enter Valid Otp'
+                            });
+                        }
+
+                    }
+                
+                
+//            function generateOTP()
+//            {
+//                let otp = "";
+//                for (let i = 0; i < 6; i++) {
+//                    otp += Math.floor(Math.random() * 10); // random digit from 0–9
+//                }
+//                return otp;
+//            }
+//
+//            function forgotPassword()
+//            {
+//                let email = document.getElementById("email").value;
+//                if (email === "")
+//                {
+//                    Swal.fire({
+//                        icon: 'warning',
+//                        title: 'Missing Fields',
+//                        text: 'Email is Required for OTP.'
+//                    });
+//                } else
+//                {
+//                    let otp = generateOTP();
+//                    var formdata = new FormData();
+//                    formdata.append("email", email),
+//                            formdata.append("otp", otp);
+//                    fetch("/ForgotAdminPassword", {method: "POST", body: formdata})
+//                            .then(response => response.text())
+//                            .then(ans => renderHTML2(ans));
+//                }
+//            }
+//            function renderHTML2(ans) {
+//                //alert(ans);
+//                let body = document.getElementById("otpModalBody");
+//                let footer = document.getElementById("otpModalFooter");
+//
+//                if (ans === "success") {
+//                    body.innerHTML = `
+//                <label for="otpInput">Enter OTP:</label>
+//                <input type="text" id="otpInput" class="form-control mb-2" maxlength="6" placeholder="6-digit OTP">
+//            `;
+//                    footer.innerHTML = `
+//                <button class="btn btn-primary" onclick="verifyOTP()">Verify</button>
+//            `;
+//                } else {
+//                    body.innerHTML = `<p class="text-danger">Such email not found!</p>`;
+//                    footer.innerHTML = '';
+//                }
+//
+//                // Show the modal
+//                var myModal = new bootstrap.Modal(document.getElementById('otpModal'));
+//                myModal.show();
+//            }
+        </script>
+    </head>
+
+    <body>
+
+<!--        <div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="otpModalLabel">Email Verification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
+                    <div class="modal-body" id="otpModalBody">
+                         Dynamic content inserted here 
+                    </div>
+
+                    <div class="modal-footer" id="otpModalFooter">
+                         Optional footer 
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </div>
-    <!--End preloader area  -->
-
-    <!-- Start header section -->
-    <div th:replace="AdminHeader :: header"></div>
-    <!-- End header section -->
-
-    <!-- Start breadcrumbs section -->
-    <section class="breadcrumbs">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb-wrapper">
-                        <h2> Admin Log In</h2>
-                        <span><a href="index.html">Home</a><i class="bi bi-chevron-right"></i>Admin Log In</span>
-                        <div class="arrow-down">
-                            <a href="#down"><i class="bi bi-chevron-down"></i></a>
+        </div>-->
+        
+        <!--Start preloader area -->
+        <div class="egns-preloader">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6">
+                        <div class="circle-border">
+                            <div class="moving-circle"></div>
+                            <div class="moving-circle"></div>
+                            <div class="moving-circle"></div>
+                            <svg width="180px" height="150px" viewBox="0 0 187.3 93.7" preserveAspectRatio="xMidYMid meet">
+                            <path stroke="#5BB543" id="outline" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" />
+                            <path id="outline-bg" opacity="0.05" fill="none" stroke="#959595" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 c-8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z" />
+                            </svg>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End breadcrumbs section -->
+        <!--End preloader area  -->
 
-    <!-- Start login-area section -->
-    <section id="down" class="login-area sec-p">
-        <div class="container">
-            <div class="login-form">
-                <h3>Log In</h3>
-                <span>Existing Member? <a href="sign-up.html">Login here</a></span>
-                <form >
-                    <label for="email">Email*
-                        <input type="email" name="email" id="email" placeholder="Your Email Here">
-                    </label>
-                    <label for="password">Password*
-                        <i class="bi bi-eye-slash" id="togglePassword"></i>
-                        <input type="password" name="email" id="password" placeholder="Type Your Password">
-                    </label>
-                    <div class="terms-forgot">
-                        <p><input type="checkbox" name="agree">I agree to the <a href="#">Terms & Policy</a></p>
-                        <a href="#">Forgot Your Password</a>
+        <!-- Start header section -->
+        <div th:replace="AdminHeader :: header"></div>
+        <!-- End header section -->
+
+        <!-- Start breadcrumbs section -->
+        <section class="breadcrumbs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-wrapper">
+                            <h2> Admin Log In</h2>
+                            <span><a href="index.html">Home</a><i class="bi bi-chevron-right"></i>Admin Log In</span>
+                            <div class="arrow-down">
+                                <a href="#down"><i class="bi bi-chevron-down"></i></a>
+                            </div>
+                        </div>
                     </div>
-                    <input type="button" value="Login" onclick="checkAdminCreds()">
-                </form>
-<!--                <div class="other-signup">
-                    <h4>or Sign up WITH</h4>
-                    <div class="others-account">
-                        <a href="#" class="google"><i class="fab fa-google"></i>Signup with google</a>
-                        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Sign up with facebook</a>
-                    </div>
-                </div>-->
-                <p>By clicking the "Sign up" button, you create a Cobiro account, and you agree to Cobiro's <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy.</a></p>
+                </div>
             </div>
-        </div>
-    </section>
-    <!-- End login-area section -->
+        </section>
+        <!-- End breadcrumbs section -->
 
-    <!-- Start footer section -->
-   <div th:replace="Footer :: footer"></div>
-    <!-- End footer section -->
+        <!-- Start login-area section -->
+        <section id="down" class="login-area sec-p">
+            <div class="container">
+                <div class="login-form">
+                    <h3>Log In</h3>
+                    <span>Existing Member? <a href="sign-up.html">Login here</a></span>
+                    <form >
+                        <label for="email">Email*
+                            <input type="email" name="email" id="email" placeholder="Your Email Here">
+                        </label>
+                        <label for="password">Password*
+                            <i class="bi bi-eye-slash" id="togglePassword"></i>
+                            <input type="password" name="email" id="password" placeholder="Type Your Password">
+                        </label>
+                        <div class="terms-forgot">
+                            <!--<p><input type="checkbox" name="agree">I agree to the <a href="#">Terms & Policy</a></p>-->
+                            <a href="#" onclick="forgot()">Forgot Your Password</a>
+                        </div>
+                        <input type="button" value="Login" onclick="checkAdminCreds()">
+                    </form>
+                    <!--                <div class="other-signup">
+                                        <h4>or Sign up WITH</h4>
+                                        <div class="others-account">
+                                            <a href="#" class="google"><i class="fab fa-google"></i>Signup with google</a>
+                                            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i>Sign up with facebook</a>
+                                        </div>
+                                    </div>-->
+                    <!--<p>By clicking the "Sign up" button, you create a Cobiro account, and you agree to Cobiro's <a href="#">Terms & Conditions</a> & <a href="#">Privacy Policy.</a></p>-->
+                </div>
+            </div>
+        </section>
+        <!-- End login-area section -->
 
-    <!--  Main jQuery  -->
-    <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery-3.6.0.min.js"></script>
-    <!-- Popper and Bootstrap JS -->
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- Swiper slider JS -->
-    <script src="assets/js/swiper-bundle.min.js"></script>
-    <!-- Slick slider JS -->
-    <script src="assets/js/slick.js"></script>
-    <!-- Nice select JS -->
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <!-- Waypoints JS -->
-    <script src="assets/js/waypoints.min.js"></script>
-    <!-- Counterup JS -->
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <!-- Magnific-popup  JS -->
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <!-- Wow JS -->
+        <!-- Start footer section -->
+        <div th:replace="Footer :: footer"></div>
+        <!-- End footer section -->
+
+        <!--  Main jQuery  -->
+        <script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery-3.6.0.min.js"></script>
+        <!-- Popper and Bootstrap JS -->
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <!-- Swiper slider JS -->
+        <script src="assets/js/swiper-bundle.min.js"></script>
+        <!-- Slick slider JS -->
+        <script src="assets/js/slick.js"></script>
+        <!-- Nice select JS -->
+        <script src="assets/js/jquery.nice-select.min.js"></script>
+        <!-- Waypoints JS -->
+        <script src="assets/js/waypoints.min.js"></script>
+        <!-- Counterup JS -->
+        <script src="assets/js/jquery.counterup.min.js"></script>
+        <!-- Magnific-popup  JS -->
+        <script src="assets/js/jquery.magnific-popup.min.js"></script>
+        <!-- Wow JS -->
         <script src="assets/js/wow.min.js"></script>
-    <script src="assets/js/anime.min.js"></script>
-    <!-- Custom JS -->
-    <script src="assets/js/custom.js"></script>
+        <script src="assets/js/anime.min.js"></script>
+        <!-- Custom JS -->
+        <script src="assets/js/custom.js"></script>
 
-</body>
+    </body>
 
 
-<!-- Mirrored from demo-egenslab.b-cdn.net/html/serve/preview/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Apr 2025 10:22:09 GMT -->
+    <!-- Mirrored from demo-egenslab.b-cdn.net/html/serve/preview/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Apr 2025 10:22:09 GMT -->
 </html>

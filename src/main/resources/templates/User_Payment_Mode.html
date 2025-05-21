@@ -132,14 +132,22 @@
                                         'Success!',
                                         'Your booking and payment were recorded successfully.',
                                         'success'
-                                        );
+                                        ).then((result) => {
+                                        if(result .isConfirmed){
+                                             window.location.href="/";
+                                        }
+                                        });
                                 
                             } else {
                                 Swal.fire(
                                         'Error!',
                                         'Something went wrong: ' + ans,
                                         'error'
-                                        );
+                                        ).then((result) => {
+                                        if(result .isConfirmed){
+                                             window.location.href="/";
+                                        }
+                                        });
                             }
                             
                         })
@@ -148,7 +156,11 @@
                                     'Error!',
                                     'Request failed: ' + error,
                                     'error'
-                                    );
+                                    ).then((result) => {
+                                        if(result .isConfirmed){
+                                             window.location.href="/";
+                                        }
+                                        });
                         });
                         }
         </script>

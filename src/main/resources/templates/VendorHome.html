@@ -277,7 +277,7 @@
                                                         <th>User Email</th>
                                                         <th>Order Ammount</th>
                                                         <th>Status</th>
-                                                        <th>View Slots</th>
+                                                        <th>View Details</th>
                                                     </tr>
                                                 </thead>`
                                 for (let i = 0; i < arrObj.length; i++)
@@ -304,7 +304,7 @@
                                                         <div class="action">
                                                             <div class="view">
 
-                                                                <i class="bi bi-eye" data-bs-toggle="modal" data-bs-target="#myModal" onclick="fetchDataForPopup(${finalObj.id})"></i>
+                                                                <i class="bi bi-eye" data-bs-toggle="modal" data-bs-target="#myModal" onclick="fetchDataForPopup(${finalObj.id},'${finalObj.address}','${finalObj.contact}')"></i>
 
                                                                         <!-- The Modal -->
                                                                         <div class="modal" id="myModal">
@@ -313,7 +313,7 @@
 
                                                                               <!-- Modal Header -->
                                                                               <div class="modal-header">
-                                                                                <h4 class="modal-title text-dark">View Slots</h4>
+                                                                                <h4 class="modal-title text-dark">View Slots and Address</h4>
                                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                                               </div>
 
@@ -343,14 +343,14 @@
                         document.getElementById("v-pills-order").innerHTML = finalhtml;
             }
             
-            function fetchDataForPopup(id)
+            function fetchDataForPopup(id,address,contact)
             {
                 fetch("/FetchDataForPopup?id="+id)
                         .then((res) => res.text())
-                        .then((ans) => renderhtmlForPopup(ans));
+                        .then((ans) => renderhtmlForPopup(ans,address,contact));
             }
             
-            function renderhtmlForPopup(ans)
+            function renderhtmlForPopup(ans,address,contact)
             {
                  console.log(ans);
                 //console.log(typeof ans);
@@ -378,6 +378,13 @@
                                             }
                                             
                 finalhtml+=`</table>`
+                     finalhtml += `
+                <div style="margin-top: 20px;">
+                    <h5>User Details</h5>
+                    <p><strong>Address:</strong> ${address}</p>
+                    <p><strong>Contact:</strong> ${contact}</p>
+                </div>`;
+                
                 
                 document.getElementById("modalBody").innerHTML = finalhtml;
             }
@@ -409,14 +416,26 @@
             }
             
         </script>
-<!--        <script>
+        <script>
                 function showDashboard() {
                     // This will activate the Bootstrap tab
                     const dashboardTab = document.querySelector('#v-pills-home-tab');
                     const tab = new bootstrap.Tab(dashboardTab);
                     tab.show();
             }
-        </script>-->
+                function showEditProfile() {
+                    // This will activate the Bootstrap tab
+                    const dashboardTab = document.querySelector('#v-pills-profile-tab');
+                    const tab = new bootstrap.Tab(dashboardTab);
+                    tab.show();
+            }
+                function showOrders() {
+                    // This will activate the Bootstrap tab
+                    const dashboardTab = document.querySelector('#v-pills-order-tab');
+                    const tab = new bootstrap.Tab(dashboardTab);
+                    tab.show();
+            }
+        </script>
 
     </head>
 
@@ -482,7 +501,7 @@
                             <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                                 <i class="bi bi-house-door"></i>Address
                             </button>
-                            <button class="nav-link" id="v-pills-logout-tab" data-bs-toggle="pill" data-bs-target="#v-pills-logout" type="button" role="tab" aria-controls="v-pills-logout" aria-selected="false">
+                            <button class="nav-link" id="v-pills-logout-tab" data-bs-toggle="pill" data-bs-target="#v-pills-logout" type="button" role="tab" aria-controls="v-pills-logout" aria-selected="false" onclick="window.location.href='/logout'">
                                 <i class="bi bi-box-arrow-in-right"></i>Logout
                             </button>
                         </div>

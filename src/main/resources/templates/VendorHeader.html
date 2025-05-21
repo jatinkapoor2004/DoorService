@@ -14,25 +14,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div th:if="${session.id}">
                 <header class="header-2 sticky_top">
                     <div class="header-logo">
-                        <a href="#"><img src="assets/images/home2/logo.svg" alt=""></a>
+                        <a href="/VendorHome"><img src="assets/images/home2/logo.svg" alt=""></a>
                     </div>
                     <div class="main-menu">
                         <nav class="main-nav">
                             <div class="mobile-menu-logo">
-                                <a href="#"><img src="assets/images/home2/logo.svg" alt=""></a>
+                                <a href="/VendorHome"><img src="assets/images/home2/logo.svg" alt=""></a>
                                 <div class="remove">
                                     <i class="bi bi-plus-lg"></i>
                                 </div>
                             </div>
                             <ul>
                                <li class="has-child active">
-                                   <a href="#">Home</a>
+                                   <a href="#" onclick="showDashboard()">Home</a>
                                 </li>
-                                <li><a href="#">Manage Profile</a></li>
-                                <li><a href="#">All Orders</a></li>
+                                <li>
+                                    <a href="#" onclick="showEditProfile()">Edit Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="showOrders()">My Orders</a>
+                                </li>
 
                                 <li class="has-child">
-                                    <a href="about.html">About Us</a>
+                                    <a href="/VendorAddPhotos">Your Galary</a>
 
                                 </li>
 

@@ -291,7 +291,7 @@ public class vendorRestControllers
     public String FetchVendorOrderDetails(HttpSession session)
     {
         int sid = (int) session.getAttribute("id");
-        String ans = new RDBMS_TO_JSON().generateJSON("select * from booking where vendor_id="+sid);
+        String ans = new RDBMS_TO_JSON().generateJSON("select booking.*,users.address,users.contact from booking JOIN users on booking.user_email=users.email where vendor_id="+sid);
         return ans;
     }
     

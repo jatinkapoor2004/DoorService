@@ -52,74 +52,139 @@
                 //console.log(arrObj);
                 let finalObj = arrObj[0];
                 //console.log(finalObj);
+                
+                userShowRatings(finalObj.email);
+                averageRating(finalObj.email);
 
                 let finalHtml = `<div class="col-lg-8">
-                        <div class="service-details">
-                            <div class="service-details-thumbnail">
-                                <img src="myuploads${finalObj.servicephoto}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                            </div>
-                            <H2>${finalObj.servicename} (${finalObj.subservice})</H2>
-                            <div class="service-tabs wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
-                            
-                                <ul class="nav nav-pills w-100" id="pills-tab" role="tablist">
-                                    <li class="nav-item flex-fill text-center" role="presentation">
-                                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Overview</button>
-                                    </li>
-                                
-                                    <li class="nav-item flex-fill text-center" role="presentation">
-                                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Client Review</button>
-                                    </li>
-                                </ul>
-        
-                                <div class="tab-content" id="pills-tabContent">
-                                
-                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                        <div class="service-overview  wow animate fadeInRight" data-wow-delay="400ms" data-wow-duration="1500ms">
-                                            <h4>Service Details</h4>
-                                            <p>${finalObj.servicedesc}</p>
-                                            <div class="include-exclude">
-                                                <h4>What’s Included</h4>
-                                                <ul>`
-                var bulletData = finalObj.included;
-                //console.log(bulletData);
-                var items = bulletData.split(",");
-                for (var i = 0; i < items.length; i++)
-                {
-                    finalHtml += `<li><i class="bi bi-circle-fill"></i>${items[i].trim()}</li>`;
-                }
-
-                finalHtml += `</ul>
-                                            </div>
-                                            <div class="include-exclude">
-                                                <h4>What’s Excluded</h4>
-                                                <ul>`
-                bulletData = finalObj.notincluded;
-                //console.log(bulletData);
-                items = bulletData.split(",");
-                for (var i = 0; i < items.length; i++)
-                {
-                    finalHtml += `<li><i class="bi bi-circle-fill"></i>${items[i].trim()}</li>`;
-                }
-
-                finalHtml += `</ul>
-                                            </div>
-        
-                                            <div class="package">
-                                                <h4>Working Hours</h4>
-                                                <ul class="package-list">
-                                                    <li><i class="bi bi-check-all"></i>Starting Time -> ${finalObj.starttime}</li>
-                                                    <li><i class="bi bi-check-all"></i>Ending Time -> ${finalObj.endtime}</li>
-                                                </ul>
-                                            </div>
-        
-        
+                                    <div class="service-details">
+                                        <div class="service-details-thumbnail">
+                                            <img src="myuploads${finalObj.servicephoto}" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain"/>
                                         </div>
-                                    </div>
+                                        <H2>${finalObj.servicename} (${finalObj.subservice})</H2>
+                                        <div class="service-tabs wow animate fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+                            
+                                            <ul class="nav nav-pills w-100" id="pills-tab" role="tablist">
+                                                <li class="nav-item flex-fill text-center" role="presentation">
+                                                    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Overview</button>
+                                                </li>
+
+                                                <li class="nav-item flex-fill text-center" role="presentation">
+                                                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Client Review</button>
+                                                </li>
+                                            </ul>
+        
+                                            <div class="tab-content" id="pills-tabContent">
+                                
+                                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                                    <div class="service-overview  wow animate fadeInRight" data-wow-delay="400ms" data-wow-duration="1500ms">
+                                                        <h4>Service Details</h4>
+                                                        <p>${finalObj.servicedesc}</p>
+                                                        <div class="include-exclude">
+                                                            <h4>What’s Included</h4>
+                                                            <ul>`
+                                                                var bulletData = finalObj.included
+                                                                //console.log(bulletData);
+                                                                var items = bulletData.split(",")
+                                                                for (var i = 0; i < items.length; i++)
+                                                                {
+                                                                    finalHtml += `<li><i class="bi bi-circle-fill"></i>${items[i].trim()}</li>`
+                                                                }
+
+                                                                finalHtml += `</ul>
+                                                        </div>
+                                                        <div class="include-exclude">
+                                                            <h4>What’s Excluded</h4>
+                                                            <ul>`
+                                                                bulletData = finalObj.notincluded
+                                                                //console.log(bulletData);
+                                                                items = bulletData.split(",")
+                                                                for (var i = 0; i < items.length; i++)
+                                                                {
+                                                                    finalHtml += `<li><i class="bi bi-circle-fill"></i>${items[i].trim()}</li>`
+                                                                }
+
+                                                                finalHtml += `</ul>
+                                                       </div>
+        
+                                                        <div class="package">
+                                                            <h4>Working Hours</h4>
+                                                            <ul class="package-list">
+                                                                <li><i class="bi bi-check-all"></i>Starting Time -> ${finalObj.starttime}</li>
+                                                                <li><i class="bi bi-check-all"></i>Ending Time -> ${finalObj.endtime}</li>
+                                                            </ul>
+                                                        </div>
+        
+                                                   </div>
+                                               </div>
                                                                
-                                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                        <div class="client-review">
-                                            <h4>Review of Painting Services in Mirpur</h4>
-                                            <div class="tab-review">
+                                            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                                <div class="client-review">
+                                                    <h4>Reviews For this vendor</h4>
+        
+                                                        <div class="col-sm-12" style="text-align: center">
+                                                            <input type="button" class="btn btn-success" value="ADD REVIEW"
+                                                                   style="border-radius: 10px;text-shadow: 2px 2px 5px black;" onclick="review()" />
+                                                        </div>
+        
+        
+                                                <div class="modal" id="myModal1" >
+                                                       <div class="modal-dialog">
+
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <div class="modal-header " style="background: yellowgreen;" >
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h4 class="modal-title" style="color: white;"> Add Review</h4>
+                                                                </div>
+                                                                <div class="modal-body " >
+                                                                    <div>
+                                                                        <div id="all">
+                                                                            <form action="" method="post" id="form1">
+                                                                                <table>
+                                                                                    <tr> <label class="form-group"> Give Ratings..</label>
+                                                                                    <td>
+                                                                                        <img id="rating_1" src="rating/empty_star.png" onmouseover="fill(this);" onmouseout="unfill(this);" onclick="selected(this);" width="50px;" height="50px;">
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <img id="rating_2" src="rating/empty_star.png" onmouseover="fill(this)" onmouseout="unfill(this)" onclick="selected(this)" width="50px;" height="50px;">
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <img id="rating_3" src="rating/empty_star.png" onmouseover="fill(this)" onmouseout="unfill(this)" onclick="selected(this)" width="50px;" height="50px;">
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <img id="rating_4" src="rating/empty_star.png" onmouseover="fill(this)" onmouseout="unfill(this)" onclick="selected(this)" width="50px;" height="50px;">
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <img  id="rating_5" src="rating/empty_star.png" onmouseover="fill(this)" onmouseout="unfill(this)" onclick="selected(this)" width="50px;" height="50px;">
+                                                                                    </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <br>
+                                                                                <label> Write Comment : </label> <input style="border-radius: 20px;" type="text" id="comment"  class="form-group"/>
+                                                                                <input type="button" value="Submit" class="btn btn-primary"
+                                                                                       style="border-radius: 10px;text-shadow: 2px 2px 5px black" onclick="addreview('${finalObj.email}')" />
+                                                                                <label style="display: none;color: tomato;" id="label1">Please Select Any Rating</label>
+
+                                                                            </form>
+                                                                    </div>
+
+                                                                </div>   
+                                                            </div>
+        
+                                                            <div class="modal-footer " style="background: yellowgreen;" >
+                                                                <button type="button" class="btn btn-default" style="border-radius: 10px;" data-dismiss="modal"  >Close</button>
+                                                            </div>
+                                                    </div>
+        
+
+
+                                    </div>
+                                </div>
+
+        
+        
+                                            <div id="showratings" class="tab-review">
                                                 <h5>Johan Martin</h5>
                                                 <div class="review-rating">
                                                     <ul>
@@ -132,34 +197,7 @@
                                                 </div>
                                                 <p>Obtain pain of because is pain, but because you nally circumstances more than some work um soluta nobis est eligendi optio cumque nihil impedit quo minus id quodOne advanced diverted domestic repeated bringing you old. Possible procured her trifling</p>
                                             </div>
-                                            <div class="tab-review">
-                                                <h5>Johan Martin</h5>
-                                                <div class="review-rating">
-                                                    <ul>
-                                                        <li><i class="bi bi-star-fill"></i></li>
-                                                        <li><i class="bi bi-star-fill"></i></li>
-                                                        <li><i class="bi bi-star-fill"></i></li>
-                                                        <li><i class="bi bi-star-fill"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <p>Obtain pain of because is pain, but because you nally circumstances more than some work um soluta nobis est eligendi optio cumque nihil impedit quo minus id quodOne.</p>
                                             </div>
-                                            <div class="tab-review">
-                                                <h5>Johan Martin</h5>
-                                                <div class="review-rating">
-                                                    <ul>
-                                                        <li><i class="bi bi-star-fill"></i></li>
-                                                        <li><i class="bi bi-star-fill"></i></li>
-                                                        <li><i class="bi bi-star-fill"></i></li>
-                                                        <li><i class="bi bi-star-fill"></i></li>
-                                                        <li><i class="bi bi-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <p>Eligendi optio cumque nihil impedit quo minus id quodOne advanced diverted domestic repeated bringing you old. Possible procured her trifling</p>
-                                            </div>
-                                            <a class="view-all-review-btn" href="#">View All Reviews</a>
-                                        </div>
                                     </div>
 
                                 </div>
@@ -205,26 +243,188 @@
                                             <h5>Name<span>${finalObj.name}</span></h5>
                                         </div>
                                         <div class="single-info">
-                                            <h5>Seller Rating
-                                                <strong>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <b>(5/5)</b>
-                                                </strong>
-                                            </h5>
-                                        </div>
+  <h5>Seller Rating
+    <strong id="averagerating">
+      <!-- Stars will go here -->
+      <b>(5/5)</b>
+    </strong>
+  </h5>
+</div>
+
                                     </div>
                                     
                                 </div>
                             </div>
                         </div>
                     </div>`;
+        console.log(finalHtml);
                 document.getElementById("showInfoAboutService").innerHTML = finalHtml;
             }
             
+            
+            
+            
+                        var xhr = new XMLHttpRequest();
+                        function review()
+                        {
+                            $("#myModal1").modal("show");
+                        }
+
+                        var n = 0;
+                        function fill(obj)
+                        {
+                            var img = obj.src;
+                            var id = obj.id;
+                            var val = parseInt(id.substring(id.indexOf("_") + 1));
+                            var i;
+                            if (n === 0)
+                            {
+                                i = 1;
+                            } else
+                            {
+                                i = n + 1;
+                            }
+                            for (; i <= 5; i++)
+                            {
+                                if (i <= val)
+                                {
+                                    document.getElementById("rating_" + i).src = "rating/filled_star.png";
+
+                                } else
+                                {
+                                    document.getElementById("rating_" + i).src = "rating/empty_star.png";
+                                }
+                            }
+
+                        }
+                        function selected(obj)
+                        {
+                            var id = obj.id;
+                            var val = parseInt(id.substring(id.indexOf("_") + 1));
+                            n = val;
+                        }
+                        function unfill(obj)
+                        {
+                            var i;
+                            if (n === 0)
+                            {
+                                i = 1;
+                            } else
+                            {
+                                i = n + 1;
+                            }
+                            for (; i <= 5; i++)
+                            {
+                                document.getElementById("rating_" + i).src = "rating/empty_star.png";
+                            }
+                        }
+
+            
+                        function addreview(vendor_email)
+                        {
+
+                            var comment = document.getElementById("comment").value;
+
+
+                            var url = "./userAddReview?vendor_email=" + vendor_email + "&rating=" + n + "&comment=" + comment;
+
+                            fetch(url).then(response => response.text())
+                                    .then(ans => renderAddReviewResponse(ans, vendor_email));
+
+
+                        }
+
+                        function renderAddReviewResponse(ans,vendor_email) 
+                        {
+                            alert(ans);
+                            userShowRatings(vendor_email)
+                        }
+
+            function userShowRatings(vendor_email) 
+            {
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function () 
+                {
+                    if (this.readyState == 4 && this.status == 200) 
+                    {
+                        var res = this.responseText.trim();
+                        var mainobj = JSON.parse(res);
+                        var arr = mainobj["ans"];
+
+                        var ren = "";
+
+                        for (var i = 0; i < arr.length; i++) 
+                        {
+                            var st = arr[i];
+                            ren += `<div class="tab-review">`;
+                            ren += `<h5>${st.user_email}</h5>`;
+                            ren += `<div class="review-rating"><ul>`;
+
+                            for (var j = 0; j < st.rating; j++) {
+                                ren += `<li><i class="bi bi-star-fill"></i></li>`;
+                            }
+                            for (var j = st.rating; j < 5; j++) {
+                                ren += `<li><i class="bi bi-star"></i></li>`;
+                            }
+
+                            ren += `</ul></div>`;
+                            ren += `<p>${st.comment}</p>`;
+                            ren += `</div>`;
+                        }
+
+                        document.getElementById("showratings").innerHTML = ren;
+                        averageRating(vendor_email)
+                    }
+                };
+                xhttp.open("GET", "./userShowRatings?vendor_email=" + vendor_email, true);
+                xhttp.send();
+            }
+
+            function averageRating(vendor_email) 
+            {
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function () 
+                {
+                    if (this.readyState == 4 && this.status == 200) 
+                    {
+                        var res = this.responseText.trim();
+                        var mainobj = JSON.parse(res);
+                        var arr = mainobj["ans"];
+
+                        var ren = "";
+                        var st = arr[0];
+                        var rating = parseFloat(st.r1);
+                        var fullStars = Math.floor(rating);
+                        var hasHalfStar = (rating % 1 !== 0);
+
+                        // Full stars
+                        for (var j = 0; j < fullStars; j++) {
+                            ren += `<i class="fas fa-star"></i>`;
+                        }
+
+                        // Half star (optional: use a custom class or icon if needed)
+                        if (hasHalfStar) {
+                            ren += `<i class="fas fa-star-half-alt"></i>`;
+                        }
+
+                        // Empty stars
+                        var totalFilled = hasHalfStar ? fullStars + 1 : fullStars;
+                        for (var j = totalFilled; j < 5; j++) {
+                            ren += `<i class="far fa-star"></i>`;
+                        }
+
+                        ren += ` <b>(${rating.toFixed(1)}/5)</b>`;
+
+                        document.getElementById("averagerating").innerHTML = ren;
+                    }
+                };
+
+                xhttp.open("GET", "./userShowAverageRatings?vendor_email=" + vendor_email, true);
+                xhttp.send();
+            }
+
             function showPhotosOfService(vid)
             {
                 //console.log(vid);
@@ -263,7 +463,7 @@
             }
             finalhtml +=    "</div>"
             finalhtml += "</div>"
-            console.log(finalhtml);
+            //console.log(finalhtml);
             document.getElementById("mydiv").innerHTML = finalhtml; 
             const swiper = new Swiper('.creative-service-slider-two', {
                    loop: true,
