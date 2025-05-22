@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.StringTokenizer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class userRestControllers {
 
+    @Autowired
+        public EmailSenderService email;
+    
     @PostMapping("/UserSignUp")
     public String UserSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String pass, @RequestParam String contact, @RequestParam String address, @RequestParam MultipartFile photo) 
     {
@@ -304,7 +308,7 @@ public class userRestControllers {
     } 
     
     
-        @GetMapping("/userShowAverageRatings")
+    @GetMapping("/userShowAverageRatings")
     public String userShowAverageRatings(@RequestParam String vendor_email) {
 
         // Assuming RDBMS_TO_JSON is available as a service or component
@@ -312,6 +316,50 @@ public class userRestControllers {
         System.out.println(ans);
         return ans;
 
+    }
+    
+    @GetMapping("/forgotUserPassword")
+    public String forgotUserPassword(@RequestParam String email, @RequestParam String otp) {
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from users where email='" + email + "'");
+            if (rs.next()) {
+                String body = "Your otp for login page is =" + otp;
+                String subject = "Login Authntication";
+                this.email.sendSimpleEmail(email, body, subject);
+                return "success";
+            } else {
+                return "fail";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ex.toString();
+        }
+    }
+
+    @GetMapping("/otpverifyUser")
+    public String otpverify(@RequestParam String email) {
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from users where email='" + email + "'");
+            if (rs.next()) {
+                rs.moveToCurrentRow();
+                String pass = rs.getString("pass");
+                String subject = "Your Account Password - Door Step Services";
+                String body = "Dear User,\n\n"
+                        + "As per your request, here is your account password:\n\n"
+                        + "Password: " + pass + "\n\n"
+                        + "Please do not share this password with anyone.\n"
+                        + "We recommend changing your password after login for better security.\n\n"
+                        + "Regards,\n"
+                        + "Team Door Step Services";
+                this.email.sendSimpleEmail(email, body, subject);
+                return "success";
+            } else {
+                return "fail";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ex.toString();
+        }
     }
     
 }

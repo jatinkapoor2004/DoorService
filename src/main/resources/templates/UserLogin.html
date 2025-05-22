@@ -86,6 +86,83 @@
                 });
             }
         }
+        var otp;
+        function forgot()
+            {
+                var email = document.getElementById("email").value;
+                otp = Math.floor(1000 + Math.random() * 9000);
+
+                if (!email)
+                {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Enter Email',
+                        text: 'Please Enter Email First'
+                    });
+                } else {
+                    var url = "/forgotUserPassword?email=" + email + "&otp=" + otp;
+                    fetch(url)
+                            .then(response => response.text())
+                            .then(ans => renderAsHtml5(ans));
+                }
+            }
+
+            function renderAsHtml5(ans) {
+                if (ans === "success") {
+                    Swal.fire({
+                        title: 'Enter OTP',
+                        html:
+                                '<input type="text" id="otpInput" class="swal2-input" placeholder="Enter OTP">' +
+                                '<button onclick="verifyOtpFromModal()" class="swal2-confirm swal2-styled" style="margin-top: 10px;">Verify OTP</button>',
+                        showConfirmButton: false
+                    });
+
+                } else if (ans === "fail") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Invalid Email',
+                        text: 'Email not registered for User'
+                    });
+                } else {
+                    alert(ans);
+                }
+            }
+
+            function verifyOtpFromModal() {
+                        var inp = document.getElementById("otpInput").value;
+                        if (otp == inp)
+                        {
+                            var email = document.getElementById("email").value;
+                            var url = "/otpverifyUser?email=" + email;
+                            fetch(url)
+                                    .then(response => response.text())
+                                    .then(ans => {
+                                        if (ans === "success")
+                                        {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Otp Success',
+                                                text: 'Please Check Your Email for the Password'
+                                            });
+
+                                        } else if (ans === "fail")
+                                        {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Otp Invalid',
+                                                text: 'Please Check Your Email for the OTP'
+                                            });
+                                        }
+                                    });
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Invalid Otp',
+                                text: 'Please Enter Valid Otp'
+                            });
+                        }
+
+                    }
     </script>
 </head>
 
@@ -138,7 +215,7 @@
         <div class="container">
             <div class="login-form">
                 <h3>Log In</h3>
-                <span>Existing Member? <a href="sign-up.html">Login here</a></span>
+                <span>New Member? <a href="/UserSignUp">SignUp here</a></span>
                 <form >
                     <label for="email">Email*
                         <input type="email" name="email" id="email" placeholder="Your Email Here">
@@ -147,10 +224,11 @@
                         <i class="bi bi-eye-slash" id="togglePassword"></i>
                         <input type="password" name="email" id="password" placeholder="Type Your Password">
                     </label>
-<!--                    <div class="terms-forgot">
-                        <p><input type="checkbox" name="agree">I agree to the <a href="#">Terms & Policy</a></p>
-                        <a href="#">Forgot Your Password</a>
-                    </div>-->
+                    
+                    <div class="terms-forgot">
+                        <!--<p><input type="checkbox" name="agree">I agree to the <a href="#">Terms & Policy</a></p>-->
+                        <a href="#" onclick="forgot()">Forgot Your Password</a>
+                    </div>
                     <input type="button" value="Login" onclick="checkUserCreds()">
                 </form>
 <!--                <div class="other-signup">

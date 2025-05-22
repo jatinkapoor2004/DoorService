@@ -258,8 +258,8 @@ public class adminRestControllers
             if (rs.next()) {
                 rs.moveToCurrentRow();
                 String pass = rs.getString("pass");
-                String subject = "Your Account Password - JC Pawfect";
-                String body = "Dear User,\n\n"
+                String subject = "Your Account Password - Door Step Services";
+                String body = "Dear Admin,\n\n"
                         + "As per your request, here is your account password:\n\n"
                         + "Password: " + pass + "\n\n"
                         + "Please do not share this password with anyone.\n"
