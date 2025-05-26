@@ -63,4 +63,10 @@ public class vendorControllers
         else
         return "/Vendor_Change_Password";
     }
+    @GetMapping("/about2")
+    public String about(HttpSession session)
+    {
+        //session.invalidate();
+        return "/About_Us_Vendor";
+    }
 }

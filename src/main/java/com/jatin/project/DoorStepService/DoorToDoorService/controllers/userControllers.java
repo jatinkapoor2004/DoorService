@@ -76,6 +76,12 @@ public class userControllers {
         session.invalidate();
         return "redirect:/";
     }
+    @GetMapping("/about")
+    public String about(HttpSession session)
+    {
+        //session.invalidate();
+        return "/About_Us";
+    }
     @GetMapping("/UserChangePassword")
     public String UserChangePassword(HttpSession session)
     {

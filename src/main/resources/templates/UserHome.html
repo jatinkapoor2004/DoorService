@@ -7,7 +7,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SERVE - On Demand Services HTML Template</title>
+        <title>SERVE - Home</title>
         <link rel="icon" href="assets/images/faviconS.png" type="image/gif" sizes="20x20">
 
         <!-- Bootstrap CSS -->
@@ -108,7 +108,7 @@
     <body onload="showCitiesDropdown()">
 
         <!--Start preloader area -->
-<!--        <div class="egns-preloader">
+        <div class="egns-preloader">
             <div class="container">
                 <div class="row d-flex justify-content-center">
                     <div class="col-6">
@@ -124,7 +124,7 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
         <!--End preloader area  -->
 
         <!-- Start header section -->
@@ -139,20 +139,22 @@
                         <span>Fast Response - Quality Works</span>
                         <h1>Nonstop Services That Make Life Better.</h1>
                         <div class="find-service">
-                            <div class="location-search">
-                                <div class="location-btn">
+                            <!--d flex de aage wali classes payiya va and --> 
+                            <div class="location-search d-flex justify-content-center">
+                                <div class="location-btn ">
                                     <i><img src="assets/images/icons/location.svg" alt=""></i>
                                     
                                     <select id="myDivForCities" class="loc-select" onchange="handleCityChange(this)">
                                         
                                     </select>
                                 </div>
-                                <div class="location-form">
+                                <!--ye wala div comment kiya hai for search bar-->
+<!--                                <div class="location-form">
                                     <form action="#" method="post">
                                         <input type="text" name="location" placeholder="Find Your Services Here">
                                         <button type="submit"><i class="bi bi-search"></i></button>
                                     </form>
-                                </div>
+                                </div>-->
                             </div>
 <!--                            <div class="suggest">
                                 <span>Suggest For You:</span>

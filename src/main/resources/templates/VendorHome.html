@@ -7,7 +7,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SERVE - On Demand Services HTML Template</title>
+        <title>SERVE - Vendor Home</title>
         <link rel="icon" href="assets/images/faviconS.png" type="image/gif" sizes="20x20">
 
         <!-- Bootstrap CSS -->
@@ -54,31 +54,59 @@
 //                console.log(desc);
             if (!name)
             {
-            alert("Name Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Name Can\'t be Empty!'
+                    });
             }
             else if (!contact)
             {
-            alert("Contact Cannot be Empty !");
-            }
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Contact Can\'t be Empty!'
+                    });
+            }            
             else if (!starttime)
             {
-            alert("Start Time Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Start time Can\'t be Empty!'
+                    });
             }
             else if (!endtime)
             {
-            alert("End Time Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'End time Can\'t be Empty!'
+                    });
             }
             else if (!city)
             {
-            alert("City Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'City Can\'t be Empty!'
+                    });
             }
             else if (!price)
             {
-            alert("Price Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Price Can\'t be Empty!'
+                    });
             }
             else if (!desc)
             {
-            alert("Description Cannot be Empty !");
+                Swal.fire({
+                        icon: 'warning',
+                        title: 'Missing Fields',
+                        text: 'Description Can\'t be Empty!'
+                    });
             }
             else
             {
@@ -97,7 +125,11 @@
             }
             function renderAns(ans)
             {
-                alert(ans);
+                Swal.fire({
+                    icon:'success',
+                    title:'Update Success',
+                    text:ans
+                    });
             }
 
             function getCitiesForVendor(cityId)
@@ -391,7 +423,7 @@
             
             function AcceptSlotRequest(bid)
             {
-                alert("accept button clicked " + bid);
+                //alert("accept button clicked " + bid);
                 fetch("/AcceptSlotRequest?Bid="+bid)
                         .then(res => res.text())
                         .then((ans) => renderAcceptSlotRequest(ans))
@@ -472,7 +504,7 @@
                     <div class="col-12">
                         <div class="breadcrumb-wrapper">
                             <h2>My Account</h2>
-                            <span><a href="#">Home</a><i class="bi bi-chevron-right"></i>My Account</span>
+                            <span><a href="/VendorHome">Home</a><i class="bi bi-chevron-right"></i>My Account</span>
                             <div class="arrow-down">
                                 <a href="#down"><i class="bi bi-chevron-down"></i></a>
                             </div>

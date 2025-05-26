@@ -6,6 +6,7 @@ import com.jatin.project.DoorStepService.DoorToDoorService.vmmExtras.RDBMS_TO_JS
 import jakarta.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class vendorRestControllers 
 {
+    @Autowired
+        public EmailSenderService email;
+    
     @PostMapping("/VendorSignUp")
     public String VendorSignUp(@RequestParam String name, @RequestParam String email, @RequestParam String pass, @RequestParam String city, @RequestParam String service, @RequestParam String subservice, @RequestParam String starttime, @RequestParam String endtime, @RequestParam String price, @RequestParam String contact, @RequestParam String desc,@RequestParam MultipartFile photo,@RequestParam String inc,@RequestParam String exc)
     {       
@@ -372,6 +376,50 @@ public class vendorRestControllers
         } catch (Exception e) 
         {
             return e.toString();
+        }
+    }
+    
+    @GetMapping("/forgotVendorPassword")
+    public String forgotVendorPassword(@RequestParam String email, @RequestParam String otp) {
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from vendors where email='" + email + "'");
+            if (rs.next()) {
+                String body = "Your otp for login page is = " + otp;
+                String subject = "Login Authntication";
+                this.email.sendSimpleEmail(email, body, subject);
+                return "success";
+            } else {
+                return "fail";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ex.toString();
+        }
+    }
+
+    @GetMapping("/otpverifyVendor")
+    public String otpverify(@RequestParam String email) {
+        try {
+            ResultSet rs = DBLoader.executeQuery("select * from vendors where email='" + email + "'");
+            if (rs.next()) {
+                rs.moveToCurrentRow();
+                String pass = rs.getString("pass");
+                String subject = "Your Account Password - Door Step Services";
+                String body = "Dear Partner,\n\n"
+                        + "As per your request, here is your account password:\n\n"
+                        + "Password: " + pass + "\n\n"
+                        + "Please do not share this password with anyone.\n"
+                        + "We recommend changing your password after login for better security.\n\n"
+                        + "Regards,\n"
+                        + "Team Door Step Services";
+                this.email.sendSimpleEmail(email, body, subject);
+                return "success";
+            } else {
+                return "fail";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ex.toString();
         }
     }
     

@@ -57,4 +57,10 @@ public class adminControllers
         else
         return "/Admin_Change_Password";
     }
+    @GetMapping("/about3")
+    public String about(HttpSession session)
+    {
+        //session.invalidate();
+        return "/About_Us_Admin";
+    }
 }
